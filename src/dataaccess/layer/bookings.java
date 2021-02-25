@@ -29,7 +29,7 @@ public class bookings {
     {
         //use dateTime compare methods instead
         for (DCBooking booking : bookings) {
-            if (booking.event.dtEvent == date) {
+            if (booking.getEvent().dtEvent == date) {
                 return false;
             }
         }

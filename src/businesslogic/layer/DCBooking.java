@@ -3,8 +3,6 @@ package businesslogic.layer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import dataaccess.layer.bookings;
-
 public class DCBooking {
     public Double baseCost;
     public Double paid;
