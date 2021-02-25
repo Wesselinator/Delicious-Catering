@@ -1,8 +1,5 @@
 package businesslogic.layer;
 
-import dataaccess.layer.DCClient;
-import dataaccess.layer.DCEvent;
-
 public class DCBooking {
     public Double baseCost;
     public Double paid;

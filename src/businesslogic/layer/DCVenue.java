@@ -1,7 +1,8 @@
 //holds all the relavant data for a venue
-package dataaccess.layer;
+package businesslogic.layer;
 
 public class DCVenue {
+    private String venueName; //venue Name
     private String adress; //the adress for the venue
     private String number; //the number to contact the venue
     //others

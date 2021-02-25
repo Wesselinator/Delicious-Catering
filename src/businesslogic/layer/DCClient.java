@@ -1,4 +1,4 @@
-package dataaccess.layer;
+package businesslogic.layer;
 
 public class DCClient {
     private String fname;
