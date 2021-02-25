@@ -9,6 +9,8 @@ public class Menu {
     private List<String> items = new ArrayList<>();
     private List<Double> prices = new ArrayList<>();
 
+    private Boolean isAdultMenu = false;
+
     public Menu(String title) {
         this.title = title;
     }
@@ -34,6 +36,10 @@ public class Menu {
         return prices;
     }
 
+    public void setAdult() {
+        isAdultMenu = true;
+    }
+
     //other
 
     public void addMenuItem(String item, Double price) {
@@ -45,20 +51,29 @@ public class Menu {
         return items.get(index) + " - R" + prices.get(index).toString();
     }
 
-    //discount, e.g. 15% of all prices
-    public void applyDiscount(Double percentageDiscounted) {
-        //change to return
+    //change if general solution is needed
+    private void applyDiscount(Double percentageDiscounted) {
         prices.replaceAll( (p) -> p*(percentageDiscounted/100) );
+    }
+
+    public boolean applyAdultDiscount() { //return might be required
+        if (isAdultMenu) {
+            applyDiscount(15.0);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public String toString() {
-        String ret = title + '\n';
+        StringBuilder ret = new StringBuilder();
+        ret.append(title + '\n');
 
         for (int i = 0; i < items.size(); i++) {
-            ret = ret + getMenuItem(i) + '\n'; //stringBuilder?
+            ret.append('\n');
+            ret.append(getMenuItem(i));
         }
 
-        return ret;
+        return ret.toString();
     }
 }

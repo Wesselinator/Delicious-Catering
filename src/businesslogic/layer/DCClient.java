@@ -37,6 +37,6 @@ public class DCClient {
 
     @Override
     public String toString() {
-        return "DCClient [First Name=" + fname + ", Last Name=" + lname + ", number=" + number + "]";
+        return "First Name=" + fname + ", Last Name=" + lname + ", Phone Number=" + number;
     }
 }

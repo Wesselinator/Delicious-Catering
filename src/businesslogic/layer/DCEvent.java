@@ -21,18 +21,39 @@ public class DCEvent {
     public String clientDecoRequest;
     //ask additional questions
 
+    //do setters and getters when needed
+
+    //other
+
+    public void discountAdultMenus() {
+        for (Menu menu : menus) {
+            menu.applyAdultDiscount();
+        }
+    }
+
+    //override
+
     @Override
     public String toString() {
-        StringBuilder sbRet = new StringBuilder();
-        sbRet.append("A "+type+" Event\n");
-        sbRet.append("Is Scheduled for " + dtEvent.toString() + " At " + venue.toString()+"\n");
-        sbRet.append( String.format("%s people will be attending. (%s kids and %s adults)%n", getPeople(), kids, adults) );
-        sbRet.append("menues"); //todo
-        if (decoration) {
-            sbRet.append("The client has specified decorations.\n");
-            sbRet.append("They requested: \"" + clientDecoRequest + "\"\n");
+        StringBuilder ret = new StringBuilder();
+        ret.append("A "+type+" Event");
+        ret.append('\n');
+        ret.append("Is Scheduled for " + dtEvent.toString() + " At:\n" + venue.toString());
+        ret.append("\n\n");
+        ret.append( String.format("%s people will be attending. (%s kids and %s adults)", getPeople(), kids, adults) );
+        ret.append('\n');
+        ret.append("The menus are:");
+        for (Menu menu : menus) {
+            ret.append('\n');
+            ret.append(menu.toString());
         }
-        return sbRet.toString();
+        if (decoration) {
+            ret.append('\n');
+            ret.append("The client has specified decorations.\n");
+            ret.append("They requested: \"" + clientDecoRequest + "\"");
+        }
+
+        return ret.toString();
     }
 
     

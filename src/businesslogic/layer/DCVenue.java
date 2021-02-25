@@ -7,9 +7,18 @@ public class DCVenue {
     private String number; //the number to contact the venue
     //others
 
-    public DCVenue(String adress, String number) {
+    public DCVenue(String venueName, String adress, String number) {
+        this.venueName = venueName;
         this.adress = adress;
         this.number = number;
+    }
+
+    public String getVenueName() {
+        return venueName;
+    }
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
     }
 
 
@@ -31,9 +40,17 @@ public class DCVenue {
     }
 
 
+
+
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
+        StringBuilder ret = new StringBuilder();
+        
+        ret.append(venueName + " is located at " + adress);
+        ret.append('\n');
+        ret.append("They can be contacted at:" + number);
+
+        return ret.toString();
     }
+
 }
