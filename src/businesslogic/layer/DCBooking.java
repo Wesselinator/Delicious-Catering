@@ -12,7 +12,12 @@ public class DCBooking {
     public DCClient client;
     private DCEvent event;
     
+    //THIS WILL NOT WORK
+    //Java is refrence passed so we'll end up changing the og anyway
+    //The Way to fix it is to implement DEEP COPING on all the object leading up to DCEvent which isn't difficult just work
+    //I think we should just rethink how to do the same thing without needing a copy
     public DCEvent getEvent() {
+
         DCEvent ret = event;
         if (event.getPeople() > 40) { //"is above 40"
             ret.discountAdultMenus();
