@@ -10,15 +10,15 @@ import java.util.List;
 import businesslogic.layer.DCBooking;
 
 public class bookings {
-    private List<DCBooking> bookings = new ArrayList<DCBooking>();
+    private List<DCBooking> bookingsData = new ArrayList<DCBooking>();
 
     //does not prevent double booking, only prevents adding the same booking twice
     public boolean addDCBooking(DCBooking booking) {
-        if (bookings.contains(booking)) {
+        if (bookingsData.contains(booking)) {
             //duplicate
             return false;
         } else {
-            bookings.add(booking);
+            bookingsData.add(booking);
             return true;
         }
         
@@ -28,7 +28,7 @@ public class bookings {
     public boolean bookingDateOpen(LocalDateTime date)
     {
         //use dateTime compare methods instead
-        for (DCBooking booking : bookings) {
+        for (DCBooking booking : bookingsData) {
             if (booking.getEvent().dtEvent == date) {
                 return false;
             }
@@ -37,7 +37,7 @@ public class bookings {
     }
 
     public DCBooking findBooking(int bookingNumber) {
-        for (DCBooking booking : bookings) {
+        for (DCBooking booking : bookingsData) {
             if (booking.bookingNumber == bookingNumber) {
                 return booking;
             }
