@@ -30,7 +30,7 @@ public class DCBooking {
 
         paid += ammount;
 
-        if ( paid >= (baseCost*0.50) || ChronoUnit.DAYS.between(LocalDateTime.now(), event.dtEvent) > 15 ) {
+        if ( paid >= (baseCost*0.50) && ChronoUnit.DAYS.between(LocalDateTime.now(), event.dtEvent) > 15 ) {
             confirmed = true;
         }
     }
