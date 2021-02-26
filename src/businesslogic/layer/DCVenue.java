@@ -13,6 +13,11 @@ public class DCVenue {
         this.number = number;
     }
 
+    public DCVenue(DCVenue copy) {
+        this(copy.venueName, copy.adress, copy.number);
+        //yea, all varables are value based!
+    }
+
     public String getVenueName() {
         return venueName;
     }

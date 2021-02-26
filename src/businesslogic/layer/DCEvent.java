@@ -1,7 +1,11 @@
 //this is a data class that holds all the data for an Event
 package businesslogic.layer;
 
+import java.lang.reflect.*;
 import java.time.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DCEvent {
     public String type;
@@ -15,11 +19,40 @@ public class DCEvent {
         return kids + adults;
     }
 
-    public Menu[] menus;
+    public List<Menu> menus = new ArrayList<>();
 
     public boolean decoration;
     public String clientDecoRequest;
     //ask additional questions
+
+    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, List<Menu> menus,
+            boolean decoration, String clientDecoRequest) {
+        this.type = type;
+        this.dtEvent = dtEvent;
+        this.venue = venue;
+        this.kids = kids;
+        this.adults = adults;
+        this.menus = menus;
+        this.decoration = decoration;
+        this.clientDecoRequest = clientDecoRequest;
+    }
+
+    public DCEvent(DCEvent copy) {
+        this.type = copy.type; //value
+        this.dtEvent = copy.dtEvent; //this is probably shallow, but we don't need a copy of this one so its finr (?)
+        this.venue = new DCVenue(copy.venue); //deep
+        this.kids = copy.kids; //value
+        this.adults = copy.adults; //value
+
+        //this.menus = new ArrayList<>(copy.menus); //idk if this is deep or shallow
+        //verbose version
+        for (Menu menu : copy.menus) {
+            this.menus.add(new Menu(menu));
+        }
+
+        this.decoration = copy.decoration; //value
+        this.clientDecoRequest = copy.clientDecoRequest; //value
+    }
 
     //do setters and getters when needed
 

@@ -15,6 +15,19 @@ public class Menu {
         this.title = title;
     }
 
+    public Menu(String title, List<String> items, List<Double> prices, Boolean isAdultMenu) {
+        this.title = title;
+        this.items = items;
+        this.prices = prices;
+        this.isAdultMenu = isAdultMenu;
+    }
+
+    public Menu(Menu copy) {
+        this.title = copy.title; //value, thus deep
+        this.items = new ArrayList<>(items); //deep
+        this.prices = new ArrayList<>(copy.prices); //deep
+        this.isAdultMenu = copy.isAdultMenu; //value, thus deep
+    }
 
     //g&s
 
