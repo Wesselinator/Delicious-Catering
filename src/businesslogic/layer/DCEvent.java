@@ -1,10 +1,8 @@
 //this is a data class that holds all the data for an Event
 package businesslogic.layer;
 
-import java.lang.reflect.*;
 import java.time.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DCEvent {
@@ -25,16 +23,22 @@ public class DCEvent {
     public String clientDecoRequest;
     //ask additional questions
 
-    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, List<Menu> menus,
-            boolean decoration, String clientDecoRequest) {
+    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, List<Menu> menus, String clientDecoRequest) {
         this.type = type;
         this.dtEvent = dtEvent;
         this.venue = venue;
         this.kids = kids;
         this.adults = adults;
         this.menus = menus;
-        this.decoration = decoration;
-        this.clientDecoRequest = clientDecoRequest;
+
+        if (!clientDecoRequest.isEmpty()) {
+            this.clientDecoRequest = clientDecoRequest;
+            this.decoration = true;
+        }
+        else {
+            this.clientDecoRequest = "";
+            this.decoration = false;
+        }
     }
 
     public DCEvent(DCEvent copy) {
