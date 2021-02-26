@@ -71,7 +71,7 @@ public class Menu implements java.io.Serializable {
     }
 
     public boolean applyAdultDiscount() { //return might be required
-        if (isAdultMenu) {
+        if (Boolean.TRUE.equals(isAdultMenu)) {
             applyDiscount(15.0);
             return true;
         }
