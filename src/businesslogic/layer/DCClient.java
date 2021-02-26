@@ -1,6 +1,7 @@
 package businesslogic.layer;
 
-public class DCClient {
+public class DCClient implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private String fname;
     private String lname;
     private String number;

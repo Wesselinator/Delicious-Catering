@@ -9,7 +9,8 @@ import java.util.List;
 
 import businesslogic.layer.DCBooking;
 
-public class Bookings {
+public class Bookings implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private List<DCBooking> bookingsData = new ArrayList<>();
 
     //does not prevent double booking, only prevents adding the same booking twice

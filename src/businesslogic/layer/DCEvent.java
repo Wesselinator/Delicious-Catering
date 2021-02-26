@@ -5,7 +5,8 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DCEvent {
+public class DCEvent implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     public String type;
     public LocalDateTime dtEvent;
     public DCVenue venue;

@@ -4,7 +4,8 @@ package businesslogic.layer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu {
+public class Menu implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private String title;
     private List<String> items = new ArrayList<>();
     private List<Double> prices = new ArrayList<>();

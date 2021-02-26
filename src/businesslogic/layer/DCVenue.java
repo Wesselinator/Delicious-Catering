@@ -1,7 +1,9 @@
 //holds all the relavant data for a venue
 package businesslogic.layer;
 
-public class DCVenue {
+public class DCVenue implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String venueName; //venue Name
     private String adress; //the adress for the venue
     private String number; //the number to contact the venue

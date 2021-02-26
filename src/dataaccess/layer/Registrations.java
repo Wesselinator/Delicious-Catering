@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 import businesslogic.layer.DCClient;
 
-public class Registrations {
+public class Registrations implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private List<DCClient> clients = new ArrayList<>();
 
     public boolean registerClient(String fname, String lname, String number) {

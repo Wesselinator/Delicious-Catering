@@ -3,7 +3,8 @@ package businesslogic.layer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class DCBooking {
+public class DCBooking implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     public Double baseCost;
     public Double paid;
     public int bookingNumber;
