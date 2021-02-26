@@ -3,7 +3,6 @@ package businesslogic.layer;
 
 import java.time.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DCEvent implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,13 +17,13 @@ public class DCEvent implements java.io.Serializable {
         return kids + adults;
     }
 
-    public List<Menu> menus = new ArrayList<>();
+    public ArrayList<Menu> menus = new ArrayList<>();
 
     public boolean decoration;
     public String clientDecoRequest;
     //ask additional questions
 
-    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, List<Menu> menus, String clientDecoRequest) {
+    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, ArrayList<Menu> menus, String clientDecoRequest) {
         this.type = type;
         this.dtEvent = dtEvent;
         this.venue = venue;
@@ -44,7 +43,7 @@ public class DCEvent implements java.io.Serializable {
 
     public DCEvent(DCEvent copy) {
         this.type = copy.type; //value
-        this.dtEvent = copy.dtEvent; //this is probably shallow, but we don't need a copy of this one so its finr (?)
+        this.dtEvent = copy.dtEvent; //this is probably shallow, but we don't need a copy of this one so its fine (?)
         this.venue = new DCVenue(copy.venue); //deep
         this.kids = copy.kids; //value
         this.adults = copy.adults; //value
