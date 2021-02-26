@@ -9,7 +9,7 @@ import java.util.List;
 
 import businesslogic.layer.DCBooking;
 
-public class Bookings {
+public class bookings {
     private List<DCBooking> bookingsData = new ArrayList<>();
 
     //does not prevent double booking, only prevents adding the same booking twice
