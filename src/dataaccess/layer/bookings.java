@@ -9,7 +9,7 @@ import java.util.List;
 
 import businesslogic.layer.DCBooking;
 
-public class bookings {
+public class Bookings {
     private List<DCBooking> bookingsData = new ArrayList<>();
 
     //does not prevent double booking, only prevents adding the same booking twice
@@ -29,7 +29,7 @@ public class bookings {
     {
         //use dateTime compare methods instead
         for (DCBooking booking : bookingsData) {
-            if (booking.getEvent().dtEvent == date) {
+            if (booking.getEvent().dtEvent.equals(date)) {
                 return false;
             }
         }
