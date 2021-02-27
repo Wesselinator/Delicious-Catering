@@ -9,7 +9,7 @@ import java.util.List;
 
 import businesslogic.layer.DCBooking;
 
-public class bookings implements java.io.Serializable {
+public class Bookings implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     private List<DCBooking> bookingsData = new ArrayList<>();
 
