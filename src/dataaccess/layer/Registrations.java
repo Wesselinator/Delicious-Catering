@@ -2,14 +2,14 @@
 //We sholud save/load from this one aswell
 package dataaccess.layer;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 import businesslogic.layer.DCClient;
 
 public class Registrations implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
-    private List<DCClient> clients = new ArrayList<>();
+    private ArrayList<DCClient> clients = new ArrayList<>();
+    private FileHandler handler;
 
     public boolean registerClient(String fname, String lname, String number) {
         DCClient newClient = new DCClient(fname, lname, number);
@@ -24,5 +24,9 @@ public class Registrations implements java.io.Serializable {
 
     public boolean registerClient(DCClient newClient) {
         return registerClient(newClient.getFname(), newClient.getLname(), newClient.getNumber());
+    }
+
+    public void saveRegistrations () {
+        handler.writeRegistrations(clients);
     }
 }

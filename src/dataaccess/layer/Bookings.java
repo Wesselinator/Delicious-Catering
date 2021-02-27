@@ -4,14 +4,14 @@
 package dataaccess.layer;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import businesslogic.layer.DCBooking;
 
 public class Bookings implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
-    private List<DCBooking> bookingsData = new ArrayList<>();
+    private ArrayList<DCBooking> bookingsData = new ArrayList<>();
+    private FileHandler handler;
 
     //does not prevent double booking, only prevents adding the same booking twice
     public boolean addDCBooking(DCBooking booking) {
@@ -45,5 +45,9 @@ public class Bookings implements java.io.Serializable {
         }
 
         return null; //more elegant solution?
+    }
+
+    public void saveBookings () {
+        handler.writeBookings(bookingsData);
     }
 }
