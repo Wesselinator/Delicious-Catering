@@ -5,13 +5,48 @@ import java.time.temporal.ChronoUnit;
 
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
-    public Double baseCost;
-    public Double paid;
-    public int bookingNumber;
+    private Double baseCost;
+    private Double paid;
+    private int bookingNumber;
     private boolean confirmed = false;
 
-    public DCClient client;
+    private DCClient client;
     private DCEvent event;
+
+    //g&s
+
+    public Double getBaseCost() {
+        return baseCost;
+    }
+
+    public void setBaseCost(Double baseCost) {
+        this.baseCost = baseCost;
+    }
+
+    public int getBookingNumber() {
+        return bookingNumber;
+    }
+
+    //no way of knowing of numbers alrady in use
+    public void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public DCClient getClient() {
+        return client;
+    }
+
+    public void setClient(DCClient client) {
+        this.client = client;
+    }
+
+    public void setEvent(DCEvent event) {
+        this.event = event;
+    }
 
     public DCEvent getEvent() {
 
@@ -30,7 +65,7 @@ public class DCBooking implements java.io.Serializable {
 
         paid += ammount;
 
-        if ( paid >= (baseCost*0.50) && ChronoUnit.DAYS.between(LocalDateTime.now(), event.dtEvent) > 15 ) {
+        if ( paid >= (baseCost*0.50) && ChronoUnit.DAYS.between(LocalDateTime.now(), event.getDtEvent()) > 15 ) {
             confirmed = true;
         }
     }
@@ -54,6 +89,4 @@ public class DCBooking implements java.io.Serializable {
 
         return ret.toString();
     }
-
-    //make sure all is here
 }

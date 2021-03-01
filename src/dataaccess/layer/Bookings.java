@@ -29,7 +29,7 @@ public class Bookings implements java.io.Serializable {
     {
         //use dateTime compare methods instead
         for (DCBooking booking : bookingsData) {
-            if (booking.getEvent().dtEvent.equals(date)) {
+            if (booking.getEvent().getDtEvent().equals(date)) {
                 return false;
             }
         }
@@ -38,7 +38,7 @@ public class Bookings implements java.io.Serializable {
 
     public DCBooking findBooking(int bookingNumber) {
         for (DCBooking booking : bookingsData) {
-            if (booking.bookingNumber == bookingNumber) {
+            if (booking.getBookingNumber() == bookingNumber) {
                 return booking;
             }
         }

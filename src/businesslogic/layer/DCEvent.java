@@ -2,26 +2,25 @@
 package businesslogic.layer;
 
 import java.time.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class DCEvent implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
-    public String type;
-    public LocalDateTime dtEvent;
-    public DCVenue venue;
+    private String type;
+    private LocalDateTime dtEvent;
+    private DCVenue venue;
 
-    public int kids;
-    public int adults;
+    private int kids;
+    private int adults;
 
     public int getPeople() {
         return kids + adults;
     }
 
-    public ArrayList<Menu> menus = new ArrayList<>();
+    private ArrayList<Menu> menus = new ArrayList<>();
 
-    public boolean decoration;
-    public String clientDecoRequest;
-    //ask additional questions
+    private boolean decoration;
+    private String clientDecoRequest;
 
     public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, ArrayList<Menu> menus, String clientDecoRequest) {
         this.type = type;
@@ -58,7 +57,64 @@ public class DCEvent implements java.io.Serializable {
         this.clientDecoRequest = copy.clientDecoRequest; //value
     }
 
-    //do setters and getters when needed
+    //s&g
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getDtEvent() {
+        return dtEvent;
+    }
+
+    public void setDtEvent(LocalDateTime dtEvent) {
+        this.dtEvent = dtEvent;
+    }
+
+    public DCVenue getVenue() {
+        return venue;
+    }
+
+    public void setVenue(DCVenue venue) {
+        this.venue = venue;
+    }
+
+    public int getKids() {
+        return kids;
+    }
+
+    public void setKids(int kids) {
+        this.kids = kids;
+    }
+
+    public int getAdults() {
+        return adults;
+    }
+
+    public void setAdults(int adults) {
+        this.adults = adults;
+    }
+
+    public ArrayList<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(ArrayList<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public String getClientDecoRequest() {
+        return clientDecoRequest;
+    }
+
+    public void setClientDecoRequest(String clientDecoRequest) {
+        decoration = !clientDecoRequest.isEmpty();
+        this.clientDecoRequest = clientDecoRequest;
+    }
 
     //other
 
@@ -67,6 +123,8 @@ public class DCEvent implements java.io.Serializable {
             menu.applyAdultDiscount();
         }
     }
+
+    //add helper functions for Menu
 
     //override
 
@@ -91,7 +149,6 @@ public class DCEvent implements java.io.Serializable {
         }
 
         return ret.toString();
-    }
-
+    }  
     
 }
