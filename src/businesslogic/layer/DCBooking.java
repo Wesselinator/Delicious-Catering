@@ -2,11 +2,6 @@ package businesslogic.layer;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Random;
-
-import businesslogic.layer.DCClient.*;
-import businesslogic.layer.DCEvent.*;
-import dataaccess.layer.Bookings;
 
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,16 +14,12 @@ public class DCBooking implements java.io.Serializable {
     private DCEvent event;
 
     //Constructor added
-   public DCBooking(Double basecost, Double paid,int bookingNumber, DCClient client, DCEvent event){
-    this.baseCost = basecost;
-    //this.paid = paid;
-    addPayment(paid);
-    this.client = client;
-    this.event = event;
-
-
-}
-
+    public DCBooking(Double basecost, int bookingNumber, DCClient client, DCEvent event) {
+        this.bookingNumber = bookingNumber;
+        this.baseCost = basecost;
+        this.client = client;
+        this.event = event;
+    }
 
     //g&s
 
