@@ -8,11 +8,7 @@ public final class ConsolePresentation {
 
     public static void intro() {
         pl("Welcome to D- C-"); //cant remember what we are doing
-        pl("This is the thingy thing thing!");
-        nl();
-        pl("1. asdf");
-        pl("2. asdf");
-        pl("3. asdf");
-        pl("4. asdf");
+        pl("1. client\n2. Admin");
+        
     }
 }
