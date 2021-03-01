@@ -22,13 +22,13 @@ public class DCEvent implements java.io.Serializable {
     private boolean decoration;
     private String clientDecoRequest;
 
-    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, ArrayList<Menu> menus, String clientDecoRequest) {
+    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, List<Menu> menus, String clientDecoRequest) {
         this.type = type;
         this.dtEvent = dtEvent;
         this.venue = venue;
         this.kids = kids;
         this.adults = adults;
-        this.menus = menus;
+        this.menus = (ArrayList) menus;
 
         if (!clientDecoRequest.isEmpty()) {
             this.clientDecoRequest = clientDecoRequest;
@@ -99,12 +99,12 @@ public class DCEvent implements java.io.Serializable {
         this.adults = adults;
     }
 
-    public ArrayList<Menu> getMenus() {
+    public List<Menu> getMenus() {
         return menus;
     }
 
-    public void setMenus(ArrayList<Menu> menus) {
-        this.menus = menus;
+    public void setMenus(List<Menu> menus) {
+        this.menus = (ArrayList) menus;
     }
 
     public String getClientDecoRequest() {
@@ -124,7 +124,13 @@ public class DCEvent implements java.io.Serializable {
         }
     }
 
-    //add helper functions for Menu
+    public List<String> getMenusNames() {
+        List<String> ret = new ArrayList<>();
+        menus.forEach(men -> ret.add(men.getTitle()));
+        return ret;
+    }
+
+    
 
     //override
 
