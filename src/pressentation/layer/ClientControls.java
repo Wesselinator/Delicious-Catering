@@ -56,6 +56,30 @@ public final class ClientControls {
 
         }
 
- 
+        // instantiate event
+        String type = askString("Enter event type");
+        LocalDateTime dateTime = LocalDateTime.parse(askString("Enter date: yyyy-MM-dd HH:mm"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        int kidsTotal = askInt("Enter number of children attending");
+        int adultsTotal = askInt("Enter number of adults attending");
+        String decorations = "";
+        String DecorationYesOrNo = askString("Would you like to add decorations");
+        if (DecorationYesOrNo.toUpperCase() == "Y") {
+            decorations = askString("Enter the decorations you would like");
+        }
+
+        DCEvent event = new DCEvent(type, dateTime, venue, kidsTotal, adultsTotal, menus, decorations);
+
+        // CLIENT can input base cost, change if necessary
+        double baseCost = askInt("Enter base cost:");
+        String PaymentNow = askString("Would you like to pay ahead? y/n");
+        double paid = 0;
+        if (PaymentNow.toUpperCase() == "Y") {
+            paid = askDouble("Enter the amount you would like to pay:");
+        }
+        //adding registered booking to booking list (datalayer)
+        Bookings DABooking = new Bookings();
+        DCBooking booking = new DCBooking(baseCost, paid, new Random().nextInt(1000000), client, event);
+        DABooking.addDCBooking(booking);
     }
 }

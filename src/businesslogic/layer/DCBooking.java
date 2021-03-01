@@ -18,7 +18,16 @@ public class DCBooking implements java.io.Serializable {
     private DCClient client;
     private DCEvent event;
 
+    //Constructor added
+   public DCBooking(Double basecost, Double paid,int bookingNumber, DCClient client, DCEvent event){
+    this.baseCost = basecost;
+    //this.paid = paid;
+    addPayment(paid);
+    this.client = client;
+    this.event = event;
 
+
+}
 
 
     //g&s
