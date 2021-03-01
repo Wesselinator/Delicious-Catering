@@ -1,12 +1,11 @@
 //This is a data holder class for the client registrations
-//We sholud save/load from this one aswell
 package dataaccess.layer;
 
 import java.util.*;
 
 import businesslogic.layer.DCClient;
 
-public class Registrations implements java.io.Serializable {
+public class Registrations {
     private static final long serialVersionUID = 1L;
     private ArrayList<DCClient> clients = new ArrayList<>();
 
@@ -25,7 +24,22 @@ public class Registrations implements java.io.Serializable {
         return registerClient(newClient.getFname(), newClient.getLname(), newClient.getNumber());
     }
 
+    public List<DCClient> getClients() {
+        return clients;
+    }
+
+    public List<String> getClientList() {
+        List<String> ret = new ArrayList<>();
+        clients.forEach(c -> ret.add(c.toString()));
+        return ret;
+    }
+
     public void saveRegistrations () {
         FileHandler.writeRegistrations(clients);
+    }
+
+    @Override
+    public String toString() {
+        return String.join("\n", getClientList());
     }
 }

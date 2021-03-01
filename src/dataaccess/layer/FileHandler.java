@@ -38,7 +38,7 @@ public final class FileHandler {
         } catch (IOException i) {
             i.printStackTrace();
         } catch (Exception e) {
-            System.out.println("\nfile not found");
+            System.out.println("File not found");
             e.printStackTrace();
         }
 
@@ -54,7 +54,7 @@ public final class FileHandler {
         } catch (IOException i) {
             i.printStackTrace();
         } catch (Exception e) {
-            System.out.println("\nfile not found");
+            System.out.println("File not found");
             e.printStackTrace();
         }
 

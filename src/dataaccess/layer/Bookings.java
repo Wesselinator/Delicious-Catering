@@ -7,8 +7,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import businesslogic.layer.DCBooking;
+import businesslogic.layer.DCClient;
 
-public class Bookings implements java.io.Serializable {
+public class Bookings {
     private static final long serialVersionUID = 1L;
     private ArrayList<DCBooking> bookingsData = new ArrayList<>();
 
@@ -43,10 +44,33 @@ public class Bookings implements java.io.Serializable {
             }
         }
 
-        return null; //more elegant solution?
+        return null; //more elegant fail solution?
+    }
+
+    public List<DCBooking> getBookings() {
+        return bookingsData;
+    }
+
+    public List<String> getListOfBookingNumbers() {
+        List<String> ret = new ArrayList<>();
+        bookingsData.forEach(bd -> ret.add(""+bd.getBookingNumber()));
+        return ret;
+    }
+
+    public List<DCClient> getBookedClients() {
+        List<DCClient> ret = new ArrayList<>();
+        bookingsData.forEach(bd -> ret.add(bd.getClient()));
+        return ret;
     }
 
     public void saveBookings () {
         FileHandler.writeBookings(bookingsData);
+    }
+
+    @Override
+    public String toString() {
+        List<String> ret = new ArrayList<>();
+        bookingsData.forEach(bd -> ret.add(bd.toString()));
+        return String.join("\n", ret);
     }
 }
