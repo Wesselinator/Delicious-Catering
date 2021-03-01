@@ -1,85 +1,84 @@
 package pressentation.layer;
 
-import businesslogic.layer.Menu;
 import dataaccess.layer.Bookings;
-import businesslogic.layer.DCBooking;
-import businesslogic.layer.DCClient;
-import businesslogic.layer.DCEvent;
-import businesslogic.layer.DCVenue;
+import businesslogic.layer.*;
 import static pressentation.layer.Ask.*;
+import static pressentation.layer.ShortConsoleMethods.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.*;
 import java.util.*;
 
-import java.text.SimpleDateFormat;
-
 public final class ClientControls {
+    //TODO: remove my insistence on taking a string for each parameter
+    //TODO: move these helper classes maybe? Maybe rename this one?
+    private ClientControls() {}
 
-    public static void register() {
-        // instantiate client
+    public static DCClient newClient(String message) {
+        pl(message);
         String fname = askString("Input first name:");
         String lname = askString("Input last name:");
         String number = askString("Input number:");
-        DCClient client = new DCClient(fname, lname, number);
+        return new DCClient(fname, lname, number);
+    }
 
-        // Instantiate venue
+    public static DCVenue newVenue(String message) {
+        pl(message);
         String venueName = askString("Input venue name:");
         String venueAddress = askString("Input venue address:");
         String venueNumber = askString("Input venue number:");
-        DCVenue venue = new DCVenue(venueName, venueAddress, venueNumber);
+        return new DCVenue(venueName, venueAddress, venueNumber);
+    }
 
-        // instantiate menu
-        List<Menu> menus = new ArrayList<>();
-        while (true) {
 
-            String title = askString("Enter menu title:");
-            boolean adultmenu = askBoolean("Is this an adult menu 0/1");
-            boolean flag = true;
-            List<String> menuItem = new ArrayList<String>();
-            List<Double> menuPrices = new ArrayList<Double>();
-            while (flag) {
-                menuItem.add(askString("Enter a menu item:"));
-                menuPrices.add(askDouble("Enter prices for that item:"));
-                String cont = askString("Would you like to add another item y/n");
-                if (cont.toUpperCase() == "N") {
-                    flag = false;
-                }
-            }
-            menus.add(new Menu(title, menuItem, menuPrices, adultmenu));
+    public static Menu newFullMenu(String message) {
+        pl(message);
+        String title = askString("Enter the menu's title: ");
+        Menu ret = new Menu(title);
 
-            String cont = askString("Would you like to add another Menu y/n");
-            if (cont.toUpperCase() == "N") {
-                break;
-            }
-
+        for (boolean b = false; Boolean.FALSE.equals(b); b = askYesNo("Finished? : ")) {
+            String item = askString("Enter the menu item: ");
+            Double price = askDouble("Enter the price for the Item: ");
+            ret.addMenuItem(item, price); 
         }
 
-        // instantiate event
-        String type = askString("Enter event type");
-        LocalDateTime dateTime = LocalDateTime.parse(askString("Enter date: yyyy-MM-dd HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return new Menu(title);
+    }
+
+    public static List<Menu> newFullMenus() {
+        List<Menu> menus = new ArrayList<>();
+        for (boolean b = false; Boolean.FALSE.equals(b); b = askYesNo("Want to add another menu? : ")) {
+            menus.add(newFullMenu(""));
+        }
+        return menus;
+    }
+
+    private static DCEvent newFullEvent(String message) {
+        String type = askString("Enter event type: ");
+        LocalDateTime dt = askLDT("Enter the date for the event");
         int kidsTotal = askInt("Enter number of children attending");
         int adultsTotal = askInt("Enter number of adults attending");
+
         String decorations = "";
-        String DecorationYesOrNo = askString("Would you like to add decorations");
-        if (DecorationYesOrNo.toUpperCase() == "Y") {
+        if (askYesNo("Would you like to add decorations")) {
             decorations = askString("Enter the decorations you would like");
         }
 
-        DCEvent event = new DCEvent(type, dateTime, venue, kidsTotal, adultsTotal, menus, decorations);
+        DCVenue venue = newVenue("");
+        List<Menu> menus = newFullMenus();
 
-        // CLIENT can input base cost, change if necessary
-        double baseCost = askInt("Enter base cost:");
-        String PaymentNow = askString("Would you like to pay ahead? y/n");
-        double paid = 0;
-        if (PaymentNow.toUpperCase() == "Y") {
-            paid = askDouble("Enter the amount you would like to pay:");
-        }
-        //adding registered booking to booking list (datalayer)
-        Bookings DABooking = new Bookings();
-        DCBooking booking = new DCBooking(baseCost, paid, new Random().nextInt(1000000), client, event);
-        DABooking.addDCBooking(booking);
+        return new DCEvent(type, dt, venue, kidsTotal, adultsTotal, menus, decorations);
+    }
+
+    //TODO: finish this implementaiton or move somewhere else
+    public static DCBooking newBookingAll(Bookings b) {
+
+        return null;
+        //if () {
+            
+        //} else {
+            
+        //}
+        //DCBooking booking = new DCBooking(baseCost, paid, new Random().nextInt(1000000), client, event);
+        //DABooking.addDCBooking(booking);
     }
 }
