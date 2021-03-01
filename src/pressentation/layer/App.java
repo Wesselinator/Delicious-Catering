@@ -5,6 +5,8 @@ import static pressentation.layer.ShortConsoleMethods.*;
 
 import java.util.Scanner;
 
+import businesslogic.layer.Menu;
+
 import static pressentation.layer.ClientControls.*;
 import static pressentation.layer.AdminControls.*;
 import static pressentation.layer.Ask.*;
@@ -23,9 +25,6 @@ public class App {
 
         AdminControls admin = new AdminControls();
         int option = askInt("1.Admin\n2.Client");
-
-        
-
         
 
         if (option == 1) {
@@ -39,7 +38,7 @@ public class App {
             // admin.adminOptionMenu();
 
         } else if (option == 2) {
-            register();
+            //register();
         } else {
             p("error");
         }

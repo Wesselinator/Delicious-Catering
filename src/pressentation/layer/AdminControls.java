@@ -13,14 +13,9 @@ public class AdminControls {
         this.passWord = "Admin";
     }
 
-    // dalk anders
-    public boolean login(String username, String password) {
 
-        if ((this.userName.equals(username)) && (this.passWord.equals(password))) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean login(String username, String password) {
+        return (this.userName.equals(username) && this.passWord.equals(password));
     }
 
     // public void adminOptionMenu(){

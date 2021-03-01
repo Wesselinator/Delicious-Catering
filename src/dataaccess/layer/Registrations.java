@@ -7,6 +7,7 @@ import businesslogic.layer.DCClient;
 
 public class Registrations {
     private static final long serialVersionUID = 1L;
+    
     private ArrayList<DCClient> clients = new ArrayList<>();
 
     public boolean registerClient(String fname, String lname, String number) {

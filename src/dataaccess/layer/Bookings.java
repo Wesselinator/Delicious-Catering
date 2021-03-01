@@ -11,6 +11,7 @@ import businesslogic.layer.DCClient;
 
 public class Bookings {
     private static final long serialVersionUID = 1L;
+    
     private ArrayList<DCBooking> bookingsData = new ArrayList<>();
 
     //does not prevent double booking, only prevents adding the same booking twice

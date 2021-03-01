@@ -7,8 +7,8 @@ public final class ConsolePresentation {
     private ConsolePresentation() {}
 
     public static void intro() {
-        pl("Welcome to D- C-"); //cant remember what we are doing
-        pl("1. client\n2. Admin");
-        
+        pl("Welcome to Delicious Catering");
+        pl("1. Client");
+        pl("2. Admin");        
     }
 }
