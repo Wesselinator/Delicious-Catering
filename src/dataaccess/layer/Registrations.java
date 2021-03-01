@@ -9,7 +9,6 @@ import businesslogic.layer.DCClient;
 public class Registrations implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     private ArrayList<DCClient> clients = new ArrayList<>();
-    private FileHandler handler;
 
     public boolean registerClient(String fname, String lname, String number) {
         DCClient newClient = new DCClient(fname, lname, number);
@@ -27,6 +26,6 @@ public class Registrations implements java.io.Serializable {
     }
 
     public void saveRegistrations () {
-        handler.writeRegistrations(clients);
+        FileHandler.writeRegistrations(clients);
     }
 }

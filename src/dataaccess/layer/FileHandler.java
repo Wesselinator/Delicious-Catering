@@ -6,11 +6,11 @@ import java.util.*;
 import businesslogic.layer.DCBooking;
 import businesslogic.layer.DCClient;
 
-public class FileHandler {
+public final class FileHandler {
 
-    public FileHandler() {}
+    private FileHandler() {}
 
-    public void writeBookings(ArrayList<DCBooking> bookings) {
+    public static void writeBookings(ArrayList<DCBooking> bookings) {
         ArrayList<DCBooking> data = bookings;         
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Data/bookings.ser"))){          
             out.writeObject(data);
@@ -20,7 +20,7 @@ public class FileHandler {
         }
     }
 
-    public void writeRegistrations(ArrayList<DCClient> registrations) {
+    public static void writeRegistrations(ArrayList<DCClient> registrations) {
         ArrayList<DCClient> data = registrations;         
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Data/registrations.ser"))){          
             out.writeObject(data);
@@ -30,7 +30,7 @@ public class FileHandler {
         }
     }
 
-    public ArrayList<DCBooking> readBookings() {
+    public static ArrayList<DCBooking> readBookings() {
         ArrayList<DCBooking> data = null;
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("Data/bookings.ser"));){          
             //@SuppressWarnings("unchecked") //ArrayList needs to be redeclared after this but then return cannot see the list
@@ -46,7 +46,7 @@ public class FileHandler {
         
     }  
     
-    public ArrayList<DCClient> readRegistrations() {
+    public static ArrayList<DCClient> readRegistrations() {
         ArrayList<DCClient> data = null;
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("Data/registrations.ser"))){          
             //@SuppressWarnings("unchecked") //ArrayList needs to be redeclared after this but then return cannot see the list

@@ -11,7 +11,6 @@ import businesslogic.layer.DCBooking;
 public class Bookings implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     private ArrayList<DCBooking> bookingsData = new ArrayList<>();
-    private FileHandler handler;
 
     //does not prevent double booking, only prevents adding the same booking twice
     public boolean addDCBooking(DCBooking booking) {
@@ -48,6 +47,6 @@ public class Bookings implements java.io.Serializable {
     }
 
     public void saveBookings () {
-        handler.writeBookings(bookingsData);
+        FileHandler.writeBookings(bookingsData);
     }
 }
