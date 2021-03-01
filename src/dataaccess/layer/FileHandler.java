@@ -15,7 +15,7 @@ public class FileHandler {
     public void writeBookings(ArrayList<DCBooking> bookings) {
         ArrayList<DCBooking> data = bookings;         
         try {
-            Path filepath = Paths.get(System.getProperty("user.dir")+"/dataaccess/layer/bookings.ser");
+            Path filepath = Paths.get("Data/bookings.ser");//file will be created if it does not yet exist
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filepath.toFile()));
             out.writeObject(data);
             out.close();
@@ -28,7 +28,7 @@ public class FileHandler {
     public void writeRegistrations(ArrayList<DCClient> registrations) {
         ArrayList<DCClient> data = registrations;         
         try {
-            Path filepath = Paths.get(System.getProperty("user.dir")+"/dataaccess/layer/registrations.ser");
+            Path filepath = Paths.get("Data/registrations.ser");//file will be created if it does not yet exist
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filepath.toFile()));
             out.writeObject(data);
             out.close();
@@ -41,7 +41,7 @@ public class FileHandler {
     public ArrayList<DCBooking> readBookings() {
         ArrayList<DCBooking> data = null;
         try {
-            Path filepath = Paths.get(System.getProperty("user.dir") + "/dataaccess/layer/bookings.ser");
+            Path filepath = Paths.get("Data/bookings.ser");
             ObjectInputStream input = new ObjectInputStream(new FileInputStream(filepath.toFile()));
             //@SuppressWarnings("unchecked") //ArrayList needs to be redeclared after this but then return cannot see the list
             data = (ArrayList<DCBooking>) input.readObject();
@@ -60,7 +60,7 @@ public class FileHandler {
     public ArrayList<DCClient> readRegistrations() {
         ArrayList<DCClient> data = null;
         try {
-            Path filepath = Paths.get(System.getProperty("user.dir") + "/dataaccess/layer/registrations.ser");
+            Path filepath = Paths.get("Data/registrations.ser");
             ObjectInputStream input = new ObjectInputStream(new FileInputStream(filepath.toFile()));
             //@SuppressWarnings("unchecked") //ArrayList needs to be redeclared after this but then return cannot see the list
             data = (ArrayList<DCClient>) input.readObject();
