@@ -108,7 +108,7 @@ public final class ClientControls {
         } else if (option3 == 2) {
             System.out.println(clientBooking);
         } else if (option3 == 3) {
-
+            clientBooking.event.setMenus(newFullMenus());
         }
     }
     

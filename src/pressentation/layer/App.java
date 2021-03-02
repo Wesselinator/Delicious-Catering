@@ -1,6 +1,6 @@
 package pressentation.layer;
 
-import static pressentation.layer.ConsolePresentation.*;
+
 import static pressentation.layer.ShortConsoleMethods.*;
 
 import java.util.Scanner;

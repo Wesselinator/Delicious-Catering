@@ -12,7 +12,7 @@ public class DCBooking implements java.io.Serializable {
     private boolean confirmed = false;
     
     private DCClient client;
-    private DCEvent event;
+    public DCEvent event;
 
     //Constructor added
     public DCBooking(Double basecost, String bookingNumber, DCClient client, DCEvent event) {
