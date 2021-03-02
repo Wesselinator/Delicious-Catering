@@ -36,33 +36,22 @@ public final class Ask {
     }
 
     public static Boolean askYesNo(String message) {
-        while (true) {
+        pl(message);
+        Scanner scan = new Scanner(System.in);
+        String word = scan.next().toLowerCase();
 
-            pl(message);
-
-            try (Scanner scan = new Scanner(System.in)) {
-                String word = scan.next();
-                Character letter = word.toLowerCase().toCharArray()[0];
-    
-                if (letter == 'y') {
-                    return true;
-                }
-    
-                if (letter == 'n') {
-                    return false;
-                } 
-            } catch (Exception e) {
-                pl("Please enter yes/no. (Don't do that again)");
-            }
-
-            pl("Please enter yes/no");
+        if (word.contains("y")) {
+            return true;
+        } else {
+            return false;
         }
+
     }
 
     public static String askString(String message) {
         Scanner scan = new Scanner(System.in);
         pl(message);
-        return scan.nextLine();    
+        return scan.nextLine();
     }
 
     public static LocalDateTime askLDT(String message) {
@@ -76,5 +65,5 @@ public final class Ask {
             }
         }
     }
-    
+
 }
