@@ -6,6 +6,7 @@ import static pressentation.layer.ShortConsoleMethods.*;
 import java.util.Scanner;
 
 import businesslogic.layer.Bookings;
+import businesslogic.layer.DCBooking;
 import businesslogic.layer.Menu;
 
 import static pressentation.layer.ClientControls.*;
@@ -14,15 +15,7 @@ import static pressentation.layer.Ask.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        // Scanner input = new Scanner(System.in);
-
-        // System.out.print("Enter woord");
-        // String werk = input.nextLine();
-
-        // System.out.println(werk);
-
-        // System.out.print("Enter woord");
-        // String werk2 = input.nextLine();
+        DCBooking clientBooking;
 
         AdminControls admin = new AdminControls();
         int option = askInt("1.Admin\n2.Client");
@@ -39,10 +32,18 @@ public class App {
 
         } else if (option == 2) {
             int option2 = askInt("1.Register\n2.Login");
-            if (option == 1) {
+            if (option2 == 1) {
                 newBookingAll();
-            } else {
-
+            } else if(option2 == 2){
+                String bookingNumber = askString("Enter you booking number");
+                if (allBookings.getListOfBookingNumbers().contains(bookingNumber)) {
+                    clientBooking = allBookings.findBooking(bookingNumber);
+                    
+                }else{
+                    p("Booking number not found!");
+                }
+            }else{
+                p("Not an option.");
             }
 
         } else {

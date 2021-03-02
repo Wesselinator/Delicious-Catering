@@ -36,7 +36,7 @@ public class Bookings {
         return true;
     }
 
-    public DCBooking findBooking(int bookingNumber) {
+    public DCBooking findBooking(String bookingNumber) {
         for (DCBooking booking : bookingsData) {
             if (booking.getBookingNumber() == bookingNumber) {
                 return booking;
@@ -66,6 +66,7 @@ public class Bookings {
     public void saveBookings () {
         FileHandler.writeBookings(bookingsData);
     }
+
 
     @Override
     public String toString() {
