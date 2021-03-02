@@ -1,18 +1,16 @@
 //This will be an object that will contain all the bookings for an instace.
 //If we are doing data persistance, this object will be used to pull data and to push data to the medium.
 //This object should contain methods to change, add, sort and extract information from ALL the bookings
-package dataaccess.layer;
+package businesslogic.layer;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
-import businesslogic.layer.DCBooking;
-import businesslogic.layer.DCClient;
+import dataaccess.layer.FileHandler;
 
 public class Bookings {
-    private static final long serialVersionUID = 1L;
     
-    private ArrayList<DCBooking> bookingsData = new ArrayList<>();
+    private List<DCBooking> bookingsData = new ArrayList<>();
 
     //does not prevent double booking, only prevents adding the same booking twice
     public boolean addDCBooking(DCBooking booking) {
@@ -49,6 +47,7 @@ public class Bookings {
     }
 
     public List<DCBooking> getBookings() {
+        bookingsData = FileHandler.readBookings();
         return bookingsData;
     }
 
