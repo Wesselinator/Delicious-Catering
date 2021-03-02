@@ -67,6 +67,7 @@ public final class Ask {
 
             pl("Please enter Yes or No");
         }
+
     }
 
     public static String askString(String message) {
@@ -86,5 +87,5 @@ public final class Ask {
             }
         }
     }
-    
+
 }

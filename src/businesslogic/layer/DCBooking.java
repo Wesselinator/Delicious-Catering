@@ -2,19 +2,20 @@ package businesslogic.layer;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     private Double baseCost;
     private Double paid;
-    private int bookingNumber;
+    private String bookingNumber;
     private boolean confirmed = false;
-
+    
     private DCClient client;
-    private DCEvent event;
+    public DCEvent event;
 
     //Constructor added
-    public DCBooking(Double basecost, int bookingNumber, DCClient client, DCEvent event) {
+    public DCBooking(Double basecost, String bookingNumber, DCClient client, DCEvent event) {
         this.bookingNumber = bookingNumber;
         this.baseCost = basecost;
         this.client = client;
@@ -31,12 +32,12 @@ public class DCBooking implements java.io.Serializable {
         this.baseCost = baseCost;
     }
 
-    public int getBookingNumber() {
+    public String getBookingNumber() {
         return bookingNumber;
     }
 
     //no way of knowing of numbers alrady in use
-    public void setBookingNumber(int bookingNumber) {
+    public void setBookingNumber(String bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
 
@@ -97,7 +98,6 @@ public class DCBooking implements java.io.Serializable {
 
         return ret.toString();
     }
-
 
  
 }
