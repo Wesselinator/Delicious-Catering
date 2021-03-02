@@ -12,10 +12,9 @@ public final class ClientControls {
     // TODO: remove my insistence on taking a string for each parameter
     // TODO: move these helper classes maybe? Maybe rename this one?
     public static Bookings allBookings;
-    
+
     private ClientControls() {
     }
-
 
     public static DCClient newClient() {
         String fname = askString("Input first name:");
@@ -70,9 +69,8 @@ public final class ClientControls {
     }
 
     // TODO: finish this implementaiton or move somewhere else
-    public static DCBooking newBookingAll() {
+    public static void newBookingAll() {
 
-        
         String bookingNumber;
 
         while (true) {
@@ -84,8 +82,34 @@ public final class ClientControls {
         DCClient client = newClient();
         DCEvent event = newFullEvent();
         double basecost = askDouble("What is the base cost?");
-        
-        return new DCBooking(basecost, bookingNumber , client, event);
 
+        allBookings.addDCBooking(new DCBooking(basecost, bookingNumber, client, event));
     }
+
+    public static void clientLogin() {
+        DCBooking clientBooking;
+        String bookingNumber = askString("Enter you booking number");
+        if (allBookings.getListOfBookingNumbers().contains(bookingNumber)) {
+            clientBooking = allBookings.findBooking(bookingNumber);
+            clientFunctions(clientBooking);
+        } else {
+            p("Booking number not found!");
+        }
+    }
+
+    public static void clientFunctions(DCBooking clientBooking) {
+
+        int option3 = askInt("1.Make payment\n2.Check details\n3.Change Menu");
+        if (option3 == 1) {
+            double ammount = askDouble("Enter ammount you want to pay");
+            clientBooking.addPayment(ammount);
+            // Dont know how to get the updated client details in the list and replace the
+            // old client(outdated client)
+        } else if (option3 == 2) {
+            System.out.println(clientBooking);
+        } else if (option3 == 3) {
+
+        }
+    }
+    
 }
