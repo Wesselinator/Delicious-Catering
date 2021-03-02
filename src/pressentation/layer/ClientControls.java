@@ -1,6 +1,6 @@
 package pressentation.layer;
 
-import dataaccess.layer.Bookings;
+import businesslogic.layer.Bookings;
 import businesslogic.layer.*;
 import static pressentation.layer.Ask.*;
 import static pressentation.layer.ShortConsoleMethods.*;
@@ -72,13 +72,10 @@ public final class ClientControls {
     //TODO: finish this implementaiton or move somewhere else
     public static DCBooking newBookingAll(Bookings b) {
 
-        return null;
-        //if () {
-            
-        //} else {
-            
-        //}
-        //DCBooking booking = new DCBooking(baseCost, paid, new Random().nextInt(1000000), client, event);
-        //DABooking.addDCBooking(booking);
+        // double basecost = askString("Input venue name:");
+        // double paid = askString("Input venue address:");
+        // String venueNumber = askString("Input venue number:");
+        // DCBooking booking = new DCBooking(baseCost, paid, new Random().nextInt(1000000), client, event);
+        // //DABooking.addDCBooking(booking);
     }
 }
