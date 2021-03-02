@@ -2,7 +2,6 @@ package businesslogic.layer;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -12,7 +11,7 @@ public class DCBooking implements java.io.Serializable {
     private boolean confirmed = false;
     
     private DCClient client;
-    public DCEvent event;
+    private DCEvent event;
 
     //Constructor added
     public DCBooking(Double basecost, String bookingNumber, DCClient client, DCEvent event) {
@@ -65,6 +64,8 @@ public class DCBooking implements java.io.Serializable {
         }
         return ret;
     }
+
+    //helper methods
 
     //able to overpay, should do something about that
     public void addPayment(double ammount) {

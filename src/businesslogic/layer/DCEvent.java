@@ -28,7 +28,7 @@ public class DCEvent implements java.io.Serializable {
         this.venue = venue;
         this.kids = kids;
         this.adults = adults;
-        this.menus = (ArrayList) menus;
+        this.menus = (ArrayList<Menu>) menus;
 
         if (!clientDecoRequest.isEmpty()) {
             this.clientDecoRequest = clientDecoRequest;
@@ -104,7 +104,7 @@ public class DCEvent implements java.io.Serializable {
     }
 
     public void setMenus(List<Menu> menus) {
-        this.menus = (ArrayList) menus;
+        this.menus = (ArrayList<Menu>) menus;
     }
 
     public String getClientDecoRequest() {

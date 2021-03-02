@@ -6,6 +6,8 @@ import java.util.*;
 import businesslogic.layer.DCBooking;
 import businesslogic.layer.DCClient;
 
+import static pressentation.layer.ShortConsoleMethods.pl;
+
 public final class FileHandler {
 
     private FileHandler() {}
@@ -14,7 +16,7 @@ public final class FileHandler {
         List<DCBooking> data = bookings;         
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Data/bookings.ser"))){          
             out.writeObject(data);
-            System.out.println("All bookings have been saved.");//This message can also be implemented when the method is used.
+            pl("All bookings have been saved.");//This message can also be implemented when the method is used.
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -24,7 +26,7 @@ public final class FileHandler {
         List<DCClient> data = registrations;         
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Data/registrations.ser"))){          
             out.writeObject(data);
-            System.out.println("All registrations have been saved.");//This message can also be implemented when the method is used.
+            pl("All registrations have been saved.");//This message can also be implemented when the method is used.
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -38,7 +40,7 @@ public final class FileHandler {
         } catch (IOException i) {
             i.printStackTrace();
         } catch (Exception e) {
-            System.out.println("File not found");
+            pl("File not found");
             e.printStackTrace();
         }
 
@@ -54,7 +56,7 @@ public final class FileHandler {
         } catch (IOException i) {
             i.printStackTrace();
         } catch (Exception e) {
-            System.out.println("File not found");
+            pl("File not found");
             e.printStackTrace();
         }
 
