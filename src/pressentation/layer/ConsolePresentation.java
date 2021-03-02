@@ -6,9 +6,13 @@ import static pressentation.layer.ShortConsoleMethods.*;
 public final class ConsolePresentation {
     private ConsolePresentation() {}
 
-    public static void intro() {
-        pl("Welcome to Delicious Catering");
-        pl("1. Client");
-        pl("2. Admin");        
+    public static void typeOfUser(int option) {
+        if (option ==1){
+            
+        }
+    
     }
+
+    
+
 }
