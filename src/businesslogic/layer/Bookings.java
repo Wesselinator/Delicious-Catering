@@ -46,7 +46,7 @@ public class Bookings {
         return null; //more elegant fail solution?
     }
 
-    public List<DCBooking> getBookings() {
+    public List<DCBooking> getBookingsFromFile() {
         bookingsData = FileHandler.readBookings();
         return bookingsData;
     }
@@ -57,9 +57,9 @@ public class Bookings {
         return ret;
     }
 
-    public List<DCClient> getBookedClients() {
-        List<DCClient> ret = new ArrayList<>();
-        bookingsData.forEach(bd -> ret.add(bd.getClient()));
+    public List<DCBooking> getBookings() {
+        List<DCBooking> ret = new ArrayList<>();
+        bookingsData.forEach(bd -> ret.add(bd));
         return ret;
     }
 
