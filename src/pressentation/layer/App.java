@@ -5,6 +5,7 @@ import static pressentation.layer.ShortConsoleMethods.*;
 
 import java.util.Scanner;
 
+import businesslogic.layer.Bookings;
 import businesslogic.layer.Menu;
 
 import static pressentation.layer.ClientControls.*;
@@ -14,7 +15,7 @@ import static pressentation.layer.Ask.*;
 public class App {
     public static void main(String[] args) throws Exception {
         // Scanner input = new Scanner(System.in);
-        
+
         // System.out.print("Enter woord");
         // String werk = input.nextLine();
 
@@ -25,7 +26,6 @@ public class App {
 
         AdminControls admin = new AdminControls();
         int option = askInt("1.Admin\n2.Client");
-        
 
         if (option == 1) {
             // while (true) {
@@ -38,7 +38,13 @@ public class App {
             // admin.adminOptionMenu();
 
         } else if (option == 2) {
-            //register();
+            int option2 = askInt("1.Register\n2.Login");
+            if (option == 1) {
+                newBookingAll();
+            } else {
+
+            }
+
         } else {
             p("error");
         }
