@@ -1,6 +1,5 @@
 package pressentation.layer;
 
-import businesslogic.layer.Bookings;
 import businesslogic.layer.*;
 import static pressentation.layer.Ask.*;
 import static pressentation.layer.ShortConsoleMethods.*;
@@ -8,12 +7,12 @@ import static pressentation.layer.ShortConsoleMethods.*;
 import java.time.*;
 import java.util.*;
 
-public final class ClientControls {
-    // TODO: remove my insistence on taking a string for each parameter
-    // TODO: move these helper classes maybe? Maybe rename this one?
-    public static Bookings allBookings;
+public class ClientControls {
+    
+    private Bookings allBookings;
 
-    private ClientControls() {
+    public ClientControls(Bookings bookings) {
+        this.allBookings = bookings;
     }
 
     public static DCClient newClient() {
@@ -58,7 +57,7 @@ public final class ClientControls {
         int adultsTotal = askInt("Enter number of adults attending");
 
         String decorations = "";
-        if (askYesNo("Would you like to add decorations y/n")) {
+        if (Boolean.TRUE.equals(askYesNo("Would you like to add decorations y/n"))) {
             decorations = askString("Enter the decorations you would like");
         }
 
@@ -68,8 +67,7 @@ public final class ClientControls {
         return new DCEvent(type, dt, venue, kidsTotal, adultsTotal, menus, decorations);
     }
 
-    // TODO: finish this implementaiton or move somewhere else
-    public static void newBookingAll() {
+    public void newBookingAll() {
 
         String bookingNumber;
 
@@ -86,7 +84,7 @@ public final class ClientControls {
         allBookings.addDCBooking(new DCBooking(basecost, bookingNumber, client, event));
     }
 
-    public static void clientLogin() {
+    public void clientLogin() {
         DCBooking clientBooking;
         String bookingNumber = askString("Enter you booking number");
         if (allBookings.getListOfBookingNumbers().contains(bookingNumber)) {
@@ -106,9 +104,9 @@ public final class ClientControls {
             // Dont know how to get the updated client details in the list and replace the
             // old client(outdated client)
         } else if (option3 == 2) {
-            System.out.println(clientBooking);
+            pl(clientBooking.toString());
         } else if (option3 == 3) {
-            clientBooking.event.setMenus(newFullMenus());
+            clientBooking.getEvent().setMenus(newFullMenus());
         }
     }
     

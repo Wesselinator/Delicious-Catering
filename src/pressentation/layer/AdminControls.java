@@ -3,55 +3,46 @@ package pressentation.layer;
 
 import static pressentation.layer.ShortConsoleMethods.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static pressentation.layer.Ask.*;
 
 import businesslogic.layer.Bookings;
-import businesslogic.layer.DCBooking;
-import businesslogic.layer.DCClient;
-import businesslogic.layer.Bookings.*;
-import businesslogic.layer.DCClient.*;
 
 public class AdminControls {
     private String userName;
     private String passWord;
 
-    public AdminControls() {
+    private Bookings allBookings;
+
+    public AdminControls(Bookings bookings) {
         this.userName = "Admin";
         this.passWord = "Admin";
+
+        this.allBookings = bookings;
     }
+
 
 
     public boolean login(String username, String password) {
         return (this.userName.equals(username) && this.passWord.equals(password));
     }
 
+    public boolean adminLogin() {
+        String username = askString("Please input username");
+        String password = askString("Please input password");
+        return login(username, password);
+    }
+
     public void adminOptionMenu(){
-        int option = askInt("1. Show all bookings\n2. Show pending confirmations");
+        pl("1. Show all bookings");
+        pl("2. Show pending confirmations");
+        nl();
+        int option = askInt("Enter Option: ");
+
         if(option==1){
-            showBookings();
+            pl(allBookings.toString());
         } else if(option == 2){
-            //confirmation();
+            pl(Bookings.dcBookingsListToString(allBookings.getConfirmedBookings()));
         }
 
     }
-
-    //TODO: No bookings appear because there are no booking items currently in the system
-    public void showBookings() {
-        Bookings booking = new Bookings();
-       
-        List<DCBooking> bookings =  booking.getBookings();
-        for (DCBooking dcBooking : bookings) {
-            System.out.println(dcBooking.toString());
-        }
-
-		//bookings.forEach(cl -> System.out.println(cl.toString()));
-    }
-
-    //TODO: Confirmation cannot be set 
-    // public void confirmation() {
-
-    // }
 }
