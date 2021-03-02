@@ -11,8 +11,11 @@ import java.util.*;
 public final class ClientControls {
     // TODO: remove my insistence on taking a string for each parameter
     // TODO: move these helper classes maybe? Maybe rename this one?
+    public static Bookings allBookings;
+    
     private ClientControls() {
     }
+
 
     public static DCClient newClient() {
         String fname = askString("Input first name:");
@@ -67,9 +70,7 @@ public final class ClientControls {
     }
 
     // TODO: finish this implementaiton or move somewhere else
-    public static void newBookingAll() {
-
-        Bookings allBookings = new Bookings();
+    public static DCBooking newBookingAll() {
 
         
         String bookingNumber;
@@ -84,7 +85,7 @@ public final class ClientControls {
         DCEvent event = newFullEvent();
         double basecost = askDouble("What is the base cost?");
         
-        allBookings.addDCBooking(new DCBooking(basecost, Integer.parseInt(bookingNumber) , client, event));
+        return new DCBooking(basecost, bookingNumber , client, event);
 
     }
 }
