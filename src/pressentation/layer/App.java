@@ -21,14 +21,14 @@ public class App {
         int option = askInt("1.Admin\n2.Client");
 
         if (option == 1) {
-            // while (true) {
-            // String username = askString("Please input username");
-            // String password = askString("Please input password");
-            // if(admin.login(username, password)){
-            // break;
-            // }
-            // }
-            // admin.adminOptionMenu();
+            while (true) {
+            String username = askString("Please input username");
+            String password = askString("Please input password");
+            if(admin.login(username, password)){
+            break;
+            }
+            }
+            admin.adminOptionMenu();
 
         } else if (option == 2) {
             int option2 = askInt("1.Register\n2.Login");

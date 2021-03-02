@@ -2,6 +2,7 @@ package businesslogic.layer;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -97,7 +98,6 @@ public class DCBooking implements java.io.Serializable {
 
         return ret.toString();
     }
-
 
  
 }
