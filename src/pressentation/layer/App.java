@@ -3,15 +3,17 @@ package pressentation.layer;
 
 import static pressentation.layer.ShortConsoleMethods.*;
 
-import businesslogic.layer.Bookings;
+import businesslogic.layer.*;
 import static pressentation.layer.Ask.*;
 
 public class App {
     public static void main(String[] args) {
         Bookings allBookings = new Bookings();
+        Registrations allClients = new Registrations();
+
         //java passes by reference
-        AdminControls admin = new AdminControls(allBookings);
-        ClientControls clienControls = new ClientControls(allBookings);
+        AdminControls adminControls = new AdminControls(allBookings, allClients);
+        ClientControls clienControls = new ClientControls(allBookings, allClients);
 
         pl("1. Admin");
         pl("2. Client");
@@ -21,9 +23,9 @@ public class App {
         if (option == 1) {
             //3 tries
             for (int i = 0; i < 3; i++) {
-                if (admin.adminLogin()) {
+                if (adminControls.adminLogin()) {
                     pl("Success!");
-                    admin.adminOptionMenu();       
+                    adminControls.adminOptionMenu();       
                 }
             }
             //structure should be changed if admin needs to explicitly quit

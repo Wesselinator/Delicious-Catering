@@ -10,9 +10,11 @@ import java.util.*;
 public class ClientControls {
     
     private Bookings allBookings;
+    private Registrations allclients;
 
-    public ClientControls(Bookings bookings) {
+    public ClientControls(Bookings bookings,Registrations clients ) {
         this.allBookings = bookings;
+        this.allclients = clients;
     }
 
     public static DCClient newClient() {

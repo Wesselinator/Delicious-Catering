@@ -9,6 +9,10 @@ public class Registrations {
     
     private List<DCClient> clients = new ArrayList<>();
 
+    public Registrations() {
+        loadRegistrations();
+    }
+
     public boolean registerClient(String fname, String lname, String number) {
         DCClient newClient = new DCClient(fname, lname, number);
         if (clients.contains(newClient)) {
@@ -16,6 +20,7 @@ public class Registrations {
         }
         else {
             clients.add(newClient);
+            saveRegistrations();
             return true;
         }
     }
@@ -25,7 +30,6 @@ public class Registrations {
     }
 
     public List<DCClient> getClients() {
-        clients = FileHandler.readRegistrations();
         return clients;
     }
 
@@ -37,6 +41,10 @@ public class Registrations {
 
     public void saveRegistrations () {
         FileHandler.writeRegistrations(clients);
+    }
+
+    public void loadRegistrations () {
+        clients = FileHandler.readRegistrations();
     }
 
     @Override
