@@ -3,6 +3,9 @@ package businesslogic.layer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import pressentation.layer.menu.ConsoleMenu;
+import static pressentation.layer.Ask.*;
+
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     private Double baseCost;
@@ -29,6 +32,28 @@ public class DCBooking implements java.io.Serializable {
 
     public void setBaseCost(Double baseCost) {
         this.baseCost = baseCost;
+    }
+
+    public Double getPaid() {
+        return paid;
+    }
+
+    public String getPaymentStatus() {
+        StringBuilder sBuilder = new StringBuilder();
+
+        if (paid == 0) {
+            sBuilder.append("Not Paid at all!");
+        } else if (paid < baseCost) {
+            sBuilder.append("Not Fully Paid!");
+        } else {
+            sBuilder.append("Fully Paid!");
+        }
+
+        if (isConfirmed()) {
+            sBuilder.append(" Booking is confirmed");
+        }
+
+        return sBuilder.toString();
     }
 
     public String getBookingNumber() {
@@ -67,7 +92,7 @@ public class DCBooking implements java.io.Serializable {
 
     //helper methods
 
-    //able to overpay, should do something about that
+    //TODO: add overpay logic
     public void addPayment(double ammount) {
         if (paid >= baseCost) {
             return; 
@@ -80,6 +105,7 @@ public class DCBooking implements java.io.Serializable {
         }
     }
 
+    //TODO: Consider using payment status
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder();
@@ -100,5 +126,13 @@ public class DCBooking implements java.io.Serializable {
         return ret.toString();
     }
 
- 
+    //present
+    public void editBooking() {
+        ConsoleMenu bookingEdit = new ConsoleMenu();
+
+        bookingEdit.add("Edit Base Cost", this::setBaseCost, () -> askDouble("Enter new value (was R"+baseCost+"): "));
+        bookingEdit.add("Edit Event", event::editEvent);
+
+        bookingEdit.showUntilExit("Return to Main Menu");
+    }
 }

@@ -5,8 +5,12 @@ package businesslogic.layer;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import dataaccess.layer.FileHandler;
+import pressentation.layer.menu.ConsoleMenu;
+import static pressentation.layer.ShortConsoleMethods.*;
+import static pressentation.layer.Ask.*;
 
 public class Bookings {
     
@@ -60,21 +64,19 @@ public class Bookings {
         return null; //more elegant fail solution?
     }
 
-    public List<String> getListOfBookingNumbers() {
-        List<String> ret = new ArrayList<>();
-        bookingsData.forEach(bd -> ret.add(""+bd.getBookingNumber()));
-        return ret;
-    }
+    /* public List<String> getListOfBookingNumbersForActiveClient(DCClient activeClient) {
+        return getActiveClientBookings(activeClient).stream().map(DCBooking::toString).collect(Collectors.toList());
+        //bookingsData.forEach(bd -> ret.add(""+bd.getBookingNumber()));
+        //return ret;
+    } */
 
 
     public List<DCBooking> getConfirmedBookings() {
-        List<DCBooking> ret = new ArrayList<>();
-        for (DCBooking booking : bookingsData) {
-            if (booking.isConfirmed()) {
-                ret.add(booking);
-            }
-        }
-        return ret;
+        return bookingsData.stream().filter(DCBooking::isConfirmed).collect(Collectors.toList());
+    }
+
+    public List<DCBooking> getActiveClientBookings(DCClient activeClient) {
+        return bookingsData.stream().filter(b -> b.getClient().equals(activeClient)).collect(Collectors.toList());
     }
 
     //data
@@ -88,7 +90,6 @@ public class Bookings {
         bookingsData = FileHandler.readBookings();
     }
 
-
     //toStrings
 
     public static String dcBookingsListToString(List<DCBooking> blist) {
@@ -101,4 +102,36 @@ public class Bookings {
     public String toString() {
         return dcBookingsListToString(bookingsData);
     }
+
+    //present
+    public static void showDCBookingsList(List<DCBooking> blist) {
+        pl(dcBookingsListToString(blist));
+    }
+
+    
+    public void editBookings(DCClient activeClient) {
+        ConsoleMenu bookingMenu = new ConsoleMenu();
+
+        pl("Please select the Booking you want to edit");
+        nl();
+        for (DCBooking booking : getActiveClientBookings(activeClient)) {
+            bookingMenu.add(booking.getBookingNumber(), booking::editBooking);
+        }
+        bookingMenu.showUntilExit("Return to Main Menu");
+    }
+
+    //TODO: Generalize
+    public void payBookings(DCClient activeClient) {
+        ConsoleMenu bookingMenu = new ConsoleMenu();
+
+        pl("Please select the Booking you want to add funds to");
+        nl();
+        for (DCBooking booking : getActiveClientBookings(activeClient)) {
+            bookingMenu.add(booking.getBookingNumber(), booking::addPayment, () -> askDouble("How much do you want to pay? (Status:"+booking.getPaymentStatus()+")"));
+        }
+
+        bookingMenu.showUntilExit("Return to Main Menu");
+    }
+
+
 }

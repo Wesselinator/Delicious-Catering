@@ -1,56 +1,29 @@
 package pressentation.layer;
 
-
-import static pressentation.layer.ShortConsoleMethods.*;
-
+import pressentation.layer.controls.*;
+import pressentation.layer.menu.ConsoleMenu;
+import pressentation.layer.menu.MenuItem;
 import businesslogic.layer.*;
-import static pressentation.layer.Ask.*;
 
+//TODO: Double check requirements
 public class App {
     public static void main(String[] args) {
         Bookings allBookings = new Bookings();
         Registrations allClients = new Registrations();
 
-        //java passes by reference
-        AdminControls adminControls = new AdminControls(allBookings, allClients);
-        ClientControls clienControls = new ClientControls(allBookings, allClients);
+        Controls adminControls = new AdminControls(allBookings, allClients);
+        Controls clientControls = new ClientControls(allBookings, allClients);
 
-        pl("1. Admin");
-        pl("2. Client");
-        nl();
-        int option = askInt("Enter option: ");
 
-        if (option == 1) {
-            //3 tries
-            for (int i = 0; i < 3; i++) {
-                if (adminControls.adminLogin()) {
-                    pl("Success!");
-                    adminControls.adminOptionMenu();       
-                }
-            }
-            //structure should be changed if admin needs to explicitly quit
+        //introduce
 
-        } else if (option == 2) {
-            int option2 = askInt("1.Register\n2.Login");
-            if (option2 == 1) {
-                clienControls.newBookingAll();
-            } else if (option2 == 2) {
-                clienControls.clientLogin();
-            } else {
-                p("Not an option.");
-            }
+        ConsoleMenu MainMenu = new ConsoleMenu();
+        MainMenu.add(new MenuItem("Admin", adminControls::login));
+        MainMenu.add(new MenuItem("Client", clientControls::login));
 
-        } else {
-            p("error");
-        }
+        MainMenu.showUntilExit("Exit");
     }
 
-}
+    
 
-// Make payment method
-// Check details
-// Change menu
-// ^^^^^^^
-// Login
-//
-//
+}

@@ -4,6 +4,9 @@ package businesslogic.layer;
 import java.time.*;
 import java.util.*;
 
+import pressentation.layer.menu.ConsoleMenu;
+import static pressentation.layer.Ask.*;
+
 public class DCEvent implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     private String type;
@@ -17,18 +20,18 @@ public class DCEvent implements java.io.Serializable {
         return kids + adults;
     }
 
-    private ArrayList<Menu> menus = new ArrayList<>();
+    private ArrayList<DCMenu> menus = new ArrayList<>();
 
     private boolean decoration;
     private String clientDecoRequest;
 
-    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, List<Menu> menus, String clientDecoRequest) {
+    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, List<DCMenu> menus, String clientDecoRequest) {
         this.type = type;
         this.dtEvent = dtEvent;
         this.venue = venue;
         this.kids = kids;
         this.adults = adults;
-        this.menus = (ArrayList<Menu>) menus;
+        this.menus = (ArrayList<DCMenu>) menus;
 
         if (!clientDecoRequest.isEmpty()) {
             this.clientDecoRequest = clientDecoRequest;
@@ -49,8 +52,8 @@ public class DCEvent implements java.io.Serializable {
 
         //this.menus = new ArrayList<>(copy.menus); //idk if this is deep or shallow
         //verbose version
-        for (Menu menu : copy.menus) {
-            this.menus.add(new Menu(menu));
+        for (DCMenu menu : copy.menus) {
+            this.menus.add(new DCMenu(menu));
         }
 
         this.decoration = copy.decoration; //value
@@ -99,12 +102,12 @@ public class DCEvent implements java.io.Serializable {
         this.adults = adults;
     }
 
-    public List<Menu> getMenus() {
+    public List<DCMenu> getMenus() {
         return menus;
     }
 
-    public void setMenus(List<Menu> menus) {
-        this.menus = (ArrayList<Menu>) menus;
+    public void setMenus(List<DCMenu> menus) {
+        this.menus = (ArrayList<DCMenu>) menus;
     }
 
     public String getClientDecoRequest() {
@@ -119,7 +122,7 @@ public class DCEvent implements java.io.Serializable {
     //other
 
     public void discountAdultMenus() {
-        for (Menu menu : menus) {
+        for (DCMenu menu : menus) {
             menu.applyAdultDiscount();
         }
     }
@@ -144,7 +147,7 @@ public class DCEvent implements java.io.Serializable {
         ret.append( String.format("%s people will be attending. (%s kids and %s adults)", getPeople(), kids, adults) );
         ret.append('\n');
         ret.append("The menus are:");
-        for (Menu menu : menus) {
+        for (DCMenu menu : menus) {
             ret.append('\n');
             ret.append(menu.toString());
         }
@@ -156,5 +159,36 @@ public class DCEvent implements java.io.Serializable {
 
         return ret.toString();
     }  
+
+    //present
+
+    public void editEvent() {
+        ConsoleMenu eventEdit = new ConsoleMenu();
+
+        eventEdit.add("Edit Type", this::setType, () -> askString("Enter new value (Was '"+type+"'): "));
+        eventEdit.add("Edit Date Time", this::setDtEvent, () -> askLDT("Enter new value (Was '"+dtEvent.toString()+"'): ")); //no checking
+        eventEdit.add("Edit Amount of kids", this::setKids, () -> askInt("Enter new value (Was "+kids+"): "));
+        eventEdit.add("Edit Amount of kids", this::setAdults, () -> askInt("Enter new value (Was "+adults+"): "));
+        eventEdit.add("Edit Venue", venue::editVenue);
+        eventEdit.add("Edit Menus", this::editMenus);
+
+        if (decoration) {
+            eventEdit.add("Edit your Decoration Request", this::setClientDecoRequest, () -> askString("Enter new value (Was "+clientDecoRequest+"): "));
+        } else {
+            eventEdit.add("Add a Decoration Request", this::setClientDecoRequest, () -> askString("Enter your request : "));
+        }
+
+        eventEdit.showUntilExit("Return to Main Menu");
+    }
+
+    private void editMenus() {
+        ConsoleMenu menuEdit = new ConsoleMenu();
+
+        for (DCMenu menu : menus) {
+            menuEdit.add("Edit " + menu.toShortString(), menu::editMenu);
+        }
+
+        menuEdit.showUntilExit("Return to Main Menu");
+    }
     
 }

@@ -1,6 +1,9 @@
 //holds all the relavant data for a venue
 package businesslogic.layer;
 
+import pressentation.layer.menu.ConsoleMenu;
+import static pressentation.layer.Ask.*;
+
 public class DCVenue implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -58,6 +61,17 @@ public class DCVenue implements java.io.Serializable {
         ret.append("They can be contacted at:" + number);
 
         return ret.toString();
+    }
+
+    //present
+    public void editVenue() {
+        ConsoleMenu venueEdit = new ConsoleMenu();
+
+        venueEdit.add("Edit Type", this::setVenueName, () -> askString("Enter new value (Was '"+venueName+"'): "));
+        venueEdit.add("Edit Type", this::setAdress, () -> askString("Enter new value (Was '"+adress+"'): "));
+        venueEdit.add("Edit Type", this::setNumber, () -> askString("Enter new value (Was '"+number+"'): "));
+
+        venueEdit.showUntilExit("Return to Main Menu");
     }
 
 }

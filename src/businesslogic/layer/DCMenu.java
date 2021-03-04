@@ -4,7 +4,10 @@ package businesslogic.layer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu implements java.io.Serializable {
+import pressentation.layer.menu.ConsoleMenu;
+import static pressentation.layer.Ask.*;
+
+public class DCMenu implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     private String title;
     private List<String> items = new ArrayList<>();
@@ -12,18 +15,18 @@ public class Menu implements java.io.Serializable {
 
     private Boolean isAdultMenu = false;
 
-    public Menu(String title) {
+    public DCMenu(String title) {
         this.title = title;
     }
 
-    public Menu(String title, List<String> items, List<Double> prices, Boolean isAdultMenu) {
+    public DCMenu(String title, List<String> items, List<Double> prices, Boolean isAdultMenu) {
         this.title = title;
         this.items = items;
         this.prices = prices;
         this.isAdultMenu = isAdultMenu;
     }
 
-    public Menu(Menu copy) {
+    public DCMenu(DCMenu copy) {
         this.title = copy.title; //value, thus deep
         this.items = new ArrayList<>(items); //deep
         this.prices = new ArrayList<>(copy.prices); //deep
@@ -89,5 +92,24 @@ public class Menu implements java.io.Serializable {
         }
 
         return ret.toString();
+    }
+
+    public String toShortString() {
+        if (isAdultMenu) {
+            return title + "[This is an Adult Menu]";
+        }
+        return title;
+    }
+
+    //present
+    //TODO: implement a double edit
+    public void editMenu() {
+        ConsoleMenu menuEdit = new ConsoleMenu();
+
+        for (String item : items) { //change to for (index will be useful)
+            //menuEdit.add(item.toString(), ); 
+        }
+
+        menuEdit.showUntilExit("Exit to Main Menu");
     }
 }

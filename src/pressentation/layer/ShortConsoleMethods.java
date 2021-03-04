@@ -19,6 +19,6 @@ public final class ShortConsoleMethods {
     //this method clears the console output - needs to be tested
     public static void cs() {   
         System.out.print("\033[H\033[2J");   
-        System.out.flush();   
+        System.out.flush();
     } 
 }
