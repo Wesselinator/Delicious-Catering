@@ -15,11 +15,61 @@ public class App {
         AdminControls adminControls = new AdminControls(allBookings, allClients);
         ClientControls clienControls = new ClientControls(allBookings, allClients);
 
-        pl("1. Admin");
-        pl("2. Client");
-        nl();
-        int option = askInt("Enter option: ");
+        int option = -1;
+        int clientOption = -1;
 
+        while (true) {
+            cs();
+            pl("1. Admin");
+            pl("2. Client");
+            nl();
+            pl("0.Exit");
+            pl("================");
+
+            option = askInt("Enter option: ");
+
+            switch (option) {
+                case 1:
+                    //3 tries
+                    for (int i = 0; i < 3; i++) {
+                        if (adminControls.adminLogin()) {
+                        pl("Success!");
+                        adminControls.adminOptionMenu(); 
+                        }      
+                    }
+                    //structure should be changed if admin needs to explicitly quit    
+                    break;
+                case 2:
+                    pl("1.Register");
+                    pl("2.Login");
+                    nl();
+                    pl("0.Back");
+                    pl("================");
+                    clientOption = askInt("Enter option: ");
+                    switch (clientOption) {
+                        case 1:
+                            clienControls.newBookingAll();
+                            break;
+                        case 2:
+                            clienControls.clientLogin();
+                            break;
+                        case 0:
+                            //go back or restart app.java
+                            break;
+                        default:
+                            p("Enter a valid option please");
+                            break;
+                    }
+                    break;
+                case 0:
+                    System.exit(0);
+                default:
+                    p("Enter a valid option please");
+                    break;
+            }
+        }
+
+        /*
         if (option == 1) {
             //3 tries
             for (int i = 0; i < 3; i++) {
@@ -43,6 +93,7 @@ public class App {
         } else {
             p("error");
         }
+        */
     }
 
 }
