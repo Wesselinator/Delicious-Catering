@@ -19,7 +19,6 @@ public class App {
         int clientOption = -1;
 
         while (true) {
-            cs();
             pl("1. Admin");
             pl("2. Client");
             nl();
