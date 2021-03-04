@@ -38,7 +38,7 @@ public class DCClient implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "First Name=" + fname + ", Last Name=" + lname + ", Phone Number=" + number;
+        return "First Name: " + fname + ", Last Name: " + lname + ", Phone Number: " + number;
     }
 
 
