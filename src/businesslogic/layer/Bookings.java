@@ -12,6 +12,10 @@ public class Bookings {
     
     private List<DCBooking> bookingsData = new ArrayList<>();
 
+    public Bookings() {
+        loadBookings();
+    }
+
     //might be needed for deep copy
     public List<DCBooking> getBookings() {
         //List<DCBooking> ret = new ArrayList<>();
@@ -26,6 +30,7 @@ public class Bookings {
             return false;
         } else {
             bookingsData.add(booking);
+            saveBookings();
             return true;
         }
         

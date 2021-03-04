@@ -6,18 +6,21 @@ import static pressentation.layer.ShortConsoleMethods.*;
 import static pressentation.layer.Ask.*;
 
 import businesslogic.layer.Bookings;
+import businesslogic.layer.Registrations;
 
 public class AdminControls {
     private String userName;
     private String passWord;
 
     private Bookings allBookings;
+    private Registrations allclients;
 
-    public AdminControls(Bookings bookings) {
+    public AdminControls(Bookings bookings, Registrations clients) {
         this.userName = "Admin";
         this.passWord = "Admin";
 
         this.allBookings = bookings;
+        this.allclients = clients;
     }
 
 
