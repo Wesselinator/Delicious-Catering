@@ -2,6 +2,7 @@ package pressentation.layer;
 
 import static pressentation.layer.ShortConsoleMethods.*;
 
+import java.security.KeyStore.Entry.Attribute;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public final class Ask {
     //cant use a static scanner var because it gets set to null in the closing process
 
     //Add more descriptive exceptions (if posible ?)
-    private static Object askObject(String message, String error, Function<Scanner, Object> funct) {
+    private static <R> R askObject(String message, String error, Function<Scanner, R> funct) {
         String prettyMessage = prettyMessageEnd(message);
         do {
             p(prettyMessage);
@@ -42,15 +43,15 @@ public final class Ask {
     // :) i made it generic!
 
     public static int askInt(String message) {
-        return (int) askObject(message, "Please enter a Number!", Scanner::nextInt);
+        return askObject(message, "Please enter a Number!", Scanner::nextInt);
     }
 
     public static Double askDouble(String message) {
-        return (Double) askObject(message, "Please enter a Number with a fraction!", Scanner::nextDouble); //is it called a decimal?
+        return askObject(message, "Please enter a Number with a fraction!", Scanner::nextDouble); //is it called a decimal?
     }
 
     public static boolean askBoolean(String message) {
-        return (boolean) askObject(message, "Please enter either 'true' or 'false'", Scanner::nextBoolean);
+        return askObject(message, "Please enter either 'true' or 'false'", Scanner::nextBoolean);
     }
 
     public static Boolean askYesNo(String message) {
@@ -71,7 +72,7 @@ public final class Ask {
     }
 
     public static String askString(String message) {
-        return (String) askObject(message, "That wasn't a string", Scanner::nextLine);   
+        return askObject(message, "That wasn't a string", Scanner::nextLine);   
     }
 
     //we should do this better
