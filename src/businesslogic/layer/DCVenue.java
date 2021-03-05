@@ -67,9 +67,9 @@ public class DCVenue implements java.io.Serializable {
     public void editVenue() {
         ConsoleMenu venueEdit = new ConsoleMenu();
 
-        venueEdit.add("Edit Type", this::setVenueName, () -> askString("Enter new value (Was '"+venueName+"'): "));
-        venueEdit.add("Edit Type", this::setAdress, () -> askString("Enter new value (Was '"+adress+"'): "));
-        venueEdit.add("Edit Type", this::setNumber, () -> askString("Enter new value (Was '"+number+"'): "));
+        venueEdit.add("Edit Venue name", this::setVenueName, () -> askString("Enter new Venue name (Was '"+venueName+"'): "));
+        venueEdit.add("Edit Adress", this::setAdress, () -> askString("Enter new Adress (Was '"+adress+"'): "));
+        venueEdit.add("Edit Number", this::setNumber, () -> askString("Enter new Number (Was '"+number+"'): "));
 
         venueEdit.showUntilExit("Return to Main Menu");
     }
