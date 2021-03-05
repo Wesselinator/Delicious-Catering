@@ -14,7 +14,7 @@ public class ConsoleMenu extends ArrayList<MenuItem> {
     private static final long serialVersionUID = 1L;
 
     public ConsoleMenu(List<String> items, List<Runnable> actions) {
-        super(MenuItem.MenuFromLists(items, actions));
+        super(MenuItem.menuFromLists(items, actions));
     }
 
     public ConsoleMenu(Collection<? extends MenuItem> c) {
@@ -28,7 +28,7 @@ public class ConsoleMenu extends ArrayList<MenuItem> {
         super(initialCapacity);
     }
 
-    public Boolean show(String exitLine) {
+    public boolean show(String exitLine) {
         for (int i = 0; i < size(); i++) {
             pl( (i+1) + ": " + get(i).toString());
         }
@@ -63,22 +63,12 @@ public class ConsoleMenu extends ArrayList<MenuItem> {
     }
 
     public <T> boolean add(String item, Consumer<T> takes, Supplier<T> gives) {
-        Runnable action = new Runnable(){
-            @Override
-            public void run() {
-                takes.accept(gives.get());
-            }
-        };
+        Runnable action = () -> takes.accept(gives.get());
         return super.add(new MenuItem(item, action));
     } 
 
     public boolean add(String item, Supplier<String> print) {
-        Runnable action = new Runnable(){
-            @Override
-            public void run() {
-                pl(print.get());
-            }
-        };
+        Runnable action = () -> pl(print.get());
         return super.add(new MenuItem(item, action));
     }
 }

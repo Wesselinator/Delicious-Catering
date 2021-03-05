@@ -2,7 +2,6 @@ package pressentation.layer;
 
 import static pressentation.layer.ShortConsoleMethods.*;
 
-import java.security.KeyStore.Entry.Attribute;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -28,7 +27,7 @@ public final class Ask {
 
     //cant use a static scanner var because it gets set to null in the closing process
 
-    //Add more descriptive exceptions (if posible ?)
+    //TODO: Consider more descriptive exception
     private static <R> R askObject(String message, String error, Function<Scanner, R> funct) {
         String prettyMessage = prettyMessageEnd(message);
         do {

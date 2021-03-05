@@ -12,7 +12,7 @@ public class MenuItem {
         this.action = action;
     }
 
-    public static List<MenuItem> MenuFromLists(List<String> items, List<Runnable> actions) {
+    public static List<MenuItem> menuFromLists(List<String> items, List<Runnable> actions) {
         List<MenuItem> ret = new ArrayList<>(items.size());
 
         if (items.size() != actions.size()) {

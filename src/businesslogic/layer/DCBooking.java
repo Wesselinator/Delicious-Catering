@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import pressentation.layer.menu.ConsoleMenu;
 import static pressentation.layer.Ask.*;
+import static pressentation.layer.ShortConsoleMethods.pl;
 
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -60,7 +61,7 @@ public class DCBooking implements java.io.Serializable {
         return bookingNumber;
     }
 
-    //no way of knowing of numbers alrady in use
+    //TODO: no way of knowing of numbers alrady in use
     public void setBookingNumber(String bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
@@ -92,13 +93,14 @@ public class DCBooking implements java.io.Serializable {
 
     //helper methods
 
-    //TODO: add overpay logic
     public void addPayment(double ammount) {
-        if (paid >= baseCost) {
+        double newPaid = paid + ammount;
+        if (newPaid >= baseCost) {
+            pl(String.format("You over payed, and R%.2f has been returened to your account ", newPaid-baseCost));
             return; 
         }
 
-        paid += ammount;
+        paid = newPaid;
 
         if ( paid >= (baseCost*0.50) && ChronoUnit.DAYS.between(LocalDateTime.now(), event.getDtEvent()) > 15 ) {
             confirmed = true;

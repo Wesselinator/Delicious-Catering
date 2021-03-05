@@ -6,6 +6,7 @@ import java.util.List;
 
 import pressentation.layer.menu.ConsoleMenu;
 import static pressentation.layer.Ask.*;
+import static pressentation.layer.ShortConsoleMethods.*;
 
 public class DCMenu implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -13,7 +14,7 @@ public class DCMenu implements java.io.Serializable {
     private List<String> items = new ArrayList<>();
     private List<Double> prices = new ArrayList<>();
 
-    private Boolean isAdultMenu = false;
+    private boolean isAdultMenu = false;
 
     public DCMenu(String title) {
         this.title = title;
@@ -65,12 +66,12 @@ public class DCMenu implements java.io.Serializable {
     }
 
     public String getMenuItem(int index) {
-        return items.get(index) + " - R" + prices.get(index).toString();
+        return String.format("%s - R%.2f", items.get(index), prices.get(index));
     }
 
     //change if general solution is needed
     private void applyDiscount(Double percentageDiscounted) {
-        prices.replaceAll( (p) -> p*(percentageDiscounted/100) );
+        prices.replaceAll(p -> p*(percentageDiscounted/100) );
     }
 
     public boolean applyAdultDiscount() { //return might be required
@@ -102,14 +103,31 @@ public class DCMenu implements java.io.Serializable {
     }
 
     //present
-    //TODO: implement a double edit
     public void editMenu() {
         ConsoleMenu menuEdit = new ConsoleMenu();
 
-        for (String item : items) { //change to for (index will be useful)
-            //menuEdit.add(item.toString(), ); 
+        pl("Choose a item to ");
+        for (int i = 0; i < items.size(); i++) {
+            int index = i;
+            menuEdit.add(getMenuItem(index), this::editItem, () -> index);
         }
 
         menuEdit.showUntilExit("Exit to Main Menu");
+    }
+
+    private void editItem(int index) {
+        String item = askString("New item name for '"+items.get(index)+"' :");
+        if (item.isEmpty()) {
+            item = items.get(index);
+        }
+
+        Double price = askDouble("New price for '"+item+"' (-1 for same) :");
+        if (price < 0) {
+            price = prices.get(index);
+        }
+
+
+        items.set(index, item); 
+        prices.set(index, price);
     }
 }
