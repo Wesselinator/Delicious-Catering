@@ -25,7 +25,6 @@ public class MenuItem {
         return ret;
     }
 
-    //TODO:This should block or everything will fall apart like a house of cards  D:
     public void excecute() {
         action.run();
     }
