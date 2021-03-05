@@ -2,7 +2,6 @@ package pressentation.layer.controls;
 
 import static pressentation.layer.Ask.*;
 import static pressentation.layer.ShortConsoleMethods.*;
-import static pressentation.layer.controls.DCConsoleEngine.*;
 
 import businesslogic.layer.Bookings;
 import businesslogic.layer.DCClient;
@@ -51,12 +50,12 @@ public class ClientControls implements Controls {
         menu();    
     }
 
-    //TODO: Implement the  add booking  logic
+    
     private void menu() {
         ConsoleMenu clientMenu = new ConsoleMenu();
 
         clientMenu.add("Show Bookings", Bookings::showDCBookingsList, () -> allBookings.getActiveClientBookings(activeClient));
-        //
+        clientMenu.add("Add Booking", allBookings::addBooking, () -> DCConsoleEngine.newBooking(activeClient)); //eww
         clientMenu.add("Pay Bookings", allBookings::payBookings,  () -> activeClient);
         clientMenu.add("Edit Bookings", allBookings::editBookings, () -> activeClient);
 

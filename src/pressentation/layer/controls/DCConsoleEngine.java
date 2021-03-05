@@ -6,13 +6,23 @@ import static pressentation.layer.Ask.*;
 import java.time.*;
 import java.util.*;
 
+//TODO: add feedback strings like "this correct?" if time allows
 public final class DCConsoleEngine {
+
+    private DCConsoleEngine() {}
 
     public static DCClient newClient() {
         String fname = askString("Input first name:");
         String lname = askString("Input last name:");
         String number = askString("Input number:");
         return new DCClient(fname, lname, number);
+    }
+
+    //TODO: test
+    public static DCBooking newBooking(DCClient activeClient) {
+        Double basecost = askDouble("Enter the total Cost of the booking");
+        DCEvent event = newFullEvent();
+        return new DCBooking(basecost, activeClient, event);
     }
 
     public static DCVenue newVenue() {
@@ -25,6 +35,9 @@ public final class DCConsoleEngine {
     public static DCMenu newFullMenu() {
         String title = askString("Enter the menu's title: ");
         DCMenu ret = new DCMenu(title);
+        if (askYesNo("Is this an Adult menu")) {
+            ret.setAdult();
+        }
 
         for (boolean b = false; Boolean.FALSE.equals(b); b = askYesNo("Finished? Y/N: ")) {
             String item = askString("Enter the menu item: ");
