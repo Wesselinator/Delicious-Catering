@@ -27,8 +27,12 @@ public class Bookings {
         return bookingsData;
     }
 
-    //does not prevent double booking, only prevents adding the same booking twice
-    public boolean addDCBooking(DCBooking booking) {
+    public boolean addBooking(DCBooking booking) {
+        String bookingNumber;
+        do {
+            bookingNumber = String.format("%s", (Math.round(Math.random() * 1000000)));    
+        } while (!bookingNumberOpen(bookingNumber));
+
         if (bookingsData.contains(booking)) {
             //duplicate
             return false;
@@ -42,10 +46,20 @@ public class Bookings {
 
     //helper functs
 
+    //TODO: do with a stream function?
+    public boolean bookingNumberOpen(String bookingNumber) {
+        boolean ret = false;
+        for (DCBooking booking : bookingsData) {
+            ret |= booking.getBookingNumber().equals(bookingNumber);
+        }
+        return ret;
+    }
+
     //return true if the booking date (and time [!]) is open
     public boolean bookingDateOpen(LocalDateTime date)
     {
         //use dateTime compare methods instead
+        
         for (DCBooking booking : bookingsData) {
             if (booking.getEvent().getDtEvent().equals(date)) {
                 return false;
@@ -63,12 +77,6 @@ public class Bookings {
 
         return null; //more elegant fail solution?
     }
-
-    /* public List<String> getListOfBookingNumbersForActiveClient(DCClient activeClient) {
-        return getActiveClientBookings(activeClient).stream().map(DCBooking::toString).collect(Collectors.toList());
-        //bookingsData.forEach(bd -> ret.add(""+bd.getBookingNumber()));
-        //return ret;
-    } */
 
 
     public List<DCBooking> getConfirmedBookings() {

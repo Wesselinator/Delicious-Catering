@@ -18,8 +18,7 @@ public class DCBooking implements java.io.Serializable {
     private DCEvent event;
 
     //Constructor added
-    public DCBooking(Double basecost, String bookingNumber, DCClient client, DCEvent event) {
-        this.bookingNumber = bookingNumber;
+    public DCBooking(Double basecost, DCClient client, DCEvent event) {
         this.baseCost = basecost;
         this.client = client;
         this.event = event;
@@ -61,7 +60,6 @@ public class DCBooking implements java.io.Serializable {
         return bookingNumber;
     }
 
-    //TODO: no way of knowing of numbers alrady in use
     public void setBookingNumber(String bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
