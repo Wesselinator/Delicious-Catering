@@ -27,7 +27,7 @@ public final class Ask {
 
     //cant use a static scanner var because it gets set to null in the closing process
 
-    //TODO: Consider more descriptive exception
+    //TODO: Consider more descriptive exceptions
     private static <R> R askObject(String message, String error, Function<Scanner, R> funct) {
         String prettyMessage = prettyMessageEnd(message);
         do {
@@ -53,7 +53,7 @@ public final class Ask {
         return askObject(message, "Please enter either 'true' or 'false'", Scanner::nextBoolean);
     }
 
-    public static Boolean askYesNo(String message) {
+    public static boolean askYesNo(String message) {
         while (true) {
             Character letter = askString(message).toLowerCase().toCharArray()[0];
     

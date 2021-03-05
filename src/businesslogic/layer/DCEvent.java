@@ -45,7 +45,7 @@ public class DCEvent implements java.io.Serializable {
 
     public DCEvent(DCEvent copy) {
         this.type = copy.type; //value
-        this.dtEvent = copy.dtEvent; //this is probably shallow, but we don't need a copy of this one so its fine (?)
+        this.dtEvent = copy.dtEvent; //this is probably shallow, but we don't use it anywhere so its fine (?)
         this.venue = new DCVenue(copy.venue); //deep
         this.kids = copy.kids; //value
         this.adults = copy.adults; //value
@@ -162,13 +162,14 @@ public class DCEvent implements java.io.Serializable {
 
     //present
 
+    //TODO: Add some type of elegant date time checking
     public void editEvent() {
         ConsoleMenu eventEdit = new ConsoleMenu();
 
-        eventEdit.add("Edit Type", this::setType, () -> askString("Enter new value (Was '"+type+"'): "));
-        eventEdit.add("Edit Date Time", this::setDtEvent, () -> askLDT("Enter new value (Was '"+dtEvent.toString()+"'): ")); //no checking
-        eventEdit.add("Edit Amount of kids", this::setKids, () -> askInt("Enter new value (Was "+kids+"): "));
-        eventEdit.add("Edit Amount of kids", this::setAdults, () -> askInt("Enter new value (Was "+adults+"): "));
+        eventEdit.add("Edit Type", this::setType, () -> askString("Enter new type (Was '"+type+"'): "));
+        eventEdit.add("Edit Date Time", this::setDtEvent, () -> askLDT("Enter new date and time (Was '"+dtEvent.toString()+"'): ")); //no DT checking
+        eventEdit.add("Edit Amount of kids", this::setKids, () -> askInt("Enter new amount kids (Was "+kids+"): "));
+        eventEdit.add("Edit Amount of adults", this::setAdults, () -> askInt("Enter new amount adults (Was "+adults+"): "));
         eventEdit.add("Edit Venue", venue::editVenue);
         eventEdit.add("Edit Menus", this::editMenus);
 
