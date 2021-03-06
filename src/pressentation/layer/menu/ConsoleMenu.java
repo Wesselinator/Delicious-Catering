@@ -29,6 +29,7 @@ public class ConsoleMenu extends ArrayList<MenuItem> {
     }
 
     public boolean show(String exitLine) {
+        pl("---------------------------------------");
         nl();
         for (int i = 0; i < size(); i++) {
             pl( (i+1) + ": " + get(i).toString());

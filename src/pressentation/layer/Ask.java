@@ -46,7 +46,7 @@ public final class Ask {
     }
 
     public static Double askDouble(String message) {
-        return askObject(message, "Please enter a Number with a fraction!", Scanner::nextDouble); //is it called a decimal?
+        return askObject(message, "Please enter a Number with a fraction! (0,51)", Scanner::nextDouble); //is it called a decimal?
     }
 
     public static boolean askBoolean(String message) {

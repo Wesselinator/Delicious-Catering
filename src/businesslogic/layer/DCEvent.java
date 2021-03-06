@@ -20,7 +20,7 @@ public class DCEvent implements java.io.Serializable {
         return kids + adults;
     }
 
-    private ArrayList<DCMenu> menus = new ArrayList<>();
+    private ArrayList<DCMenu> menus;
 
     private boolean decoration;
     private String clientDecoRequest;
@@ -52,6 +52,7 @@ public class DCEvent implements java.io.Serializable {
 
         //this.menus = new ArrayList<>(copy.menus); //idk if this is deep or shallow
         //verbose version
+        this.menus = new ArrayList<>();
         for (DCMenu menu : copy.menus) {
             this.menus.add(new DCMenu(menu));
         }
@@ -141,11 +142,10 @@ public class DCEvent implements java.io.Serializable {
     public String toString() {
         StringBuilder ret = new StringBuilder();
         ret.append("A "+type+" Event");
-        ret.append('\n');
-        ret.append("Is Scheduled for " + dtEvent.toString() + " At:\n" + venue.toString());
+        ret.append(" is Scheduled for " + dtEvent.toString() + " at " + venue.toString());
         ret.append("\n\n");
         ret.append( String.format("%s people will be attending. (%s kids and %s adults)", getPeople(), kids, adults) );
-        ret.append('\n');
+        ret.append("\n\n");
         ret.append("The menus are:");
         for (DCMenu menu : menus) {
             ret.append('\n');
@@ -162,7 +162,6 @@ public class DCEvent implements java.io.Serializable {
 
     //present
 
-    //TODO: Add some type of elegant date time checking
     public void editEvent() {
         ConsoleMenu eventEdit = new ConsoleMenu();
 
@@ -179,7 +178,7 @@ public class DCEvent implements java.io.Serializable {
             eventEdit.add("Add a Decoration Request", this::setClientDecoRequest, () -> askString("Enter your request : "));
         }
 
-        eventEdit.showUntilExit("Return to Main Menu");
+        eventEdit.showUntilExit("Return");
     }
 
     private void editMenus() {
@@ -189,7 +188,7 @@ public class DCEvent implements java.io.Serializable {
             menuEdit.add("Edit " + menu.toShortString(), menu::editMenu);
         }
 
-        menuEdit.showUntilExit("Return to Main Menu");
+        menuEdit.showUntilExit("Return");
     }
     
 }

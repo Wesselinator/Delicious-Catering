@@ -56,9 +56,9 @@ public class DCVenue implements java.io.Serializable {
     public String toString() {
         StringBuilder ret = new StringBuilder();
         
-        ret.append(venueName + " is located at " + adress);
+        ret.append(venueName + " which is located at " + adress);
         ret.append('\n');
-        ret.append("They can be contacted at:" + number);
+        ret.append("Contact Number: " + number);
 
         return ret.toString();
     }

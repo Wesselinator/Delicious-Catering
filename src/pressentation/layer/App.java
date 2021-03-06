@@ -15,8 +15,7 @@ public class App {
         Controls adminControls = new AdminControls(allBookings, allClients);
         Controls clientControls = new ClientControls(allBookings, allClients);
 
-
-        System.out.println(DCART);
+        pl(DCART);
         pl("Welcome!"); //or someting
 
         ConsoleMenu MainMenu = new ConsoleMenu();

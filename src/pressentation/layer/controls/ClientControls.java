@@ -60,7 +60,7 @@ public class ClientControls implements Controls {
         clientMenu.add("Pay Bookings", allBookings::payBookings,  () -> activeClient);
         clientMenu.add("Edit Bookings", allBookings::editBookings, () -> activeClient);
 
-        clientMenu.showUntilExit("Return to Main Menu");
+        clientMenu.showUntilExit("Logout");
     }
 
     

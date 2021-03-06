@@ -9,6 +9,7 @@ import static pressentation.layer.ShortConsoleMethods.pl;
 
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
+
     private Double baseCost;
     private Double paid;
     private String bookingNumber;
@@ -22,6 +23,7 @@ public class DCBooking implements java.io.Serializable {
         this.baseCost = basecost;
         this.client = client;
         this.event = event;
+        this.paid = 0.0;
     }
 
     //g&s
@@ -93,7 +95,7 @@ public class DCBooking implements java.io.Serializable {
 
     public void addPayment(double ammount) {
         double newPaid = paid + ammount;
-        if (newPaid >= baseCost) {
+        if (newPaid > baseCost) {
             pl(String.format("You over payed, and R%.2f has been returened to your account ", newPaid-baseCost));
             return; 
         }
@@ -103,24 +105,29 @@ public class DCBooking implements java.io.Serializable {
         if ( paid >= (baseCost*0.50) && ChronoUnit.DAYS.between(LocalDateTime.now(), event.getDtEvent()) > 15 ) {
             confirmed = true;
         }
+
+        if (paid.equals(baseCost)) {
+            pl(getPaymentStatus());
+        }
     }
 
-    //TODO: Consider using payment status
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder();
         
+        ret.append("\n----------------------------\n");
+
         ret.append("Booking: " + bookingNumber);
         ret.append('\n');
-        ret.append("Cost: " + baseCost);
+        ret.append(String.format("Cost: R%.2f", baseCost));
         ret.append('\n');
-        ret.append("Paid: " + paid);
+        ret.append(String.format("Cost: R%.2f", paid));
         ret.append('\n');
         ret.append("Confirmed: " + confirmed);
         ret.append('\n');
         ret.append("Client: " + client.toString());
-        ret.append('\n');
-        ret.append("Event:\n" + getEvent().toString());
+        ret.append("\n\n");
+        ret.append("Event: \n" + getEvent().toString());
         ret.append('\n');
 
         return ret.toString();
@@ -133,6 +140,6 @@ public class DCBooking implements java.io.Serializable {
         bookingEdit.add("Edit Base Cost", this::setBaseCost, () -> askDouble("Enter new value (was R"+baseCost+"): "));
         bookingEdit.add("Edit Event", event::editEvent);
 
-        bookingEdit.showUntilExit("Return to Main Menu");
+        bookingEdit.showUntilExit("Return");
     }
 }

@@ -54,6 +54,7 @@ public class AdminControls implements Controls {
         ConsoleMenu adminMenu = new ConsoleMenu();
 
         adminMenu.add("Show all bookings", allBookings::toString);
+        adminMenu.add("Show all registered clients", allclients::toString);
         adminMenu.add("Show confirmations", Bookings::showDCBookingsList, allBookings::getConfirmedBookings);
         adminMenu.add("Register new client", allclients::registerClient, DCConsoleEngine::newClient);
 
