@@ -1,12 +1,17 @@
 //holds all the relavant data for a venue
 package businesslogic.layer;
 
+import static pressentation.layer.Ask.*;
+
+import pressentation.layer.menu.ConsoleMenu;
+
 public class DCVenue implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     
-    private String venueName; //venue Name
+    private String venueName; //venue name
     private String adress; //the adress for the venue
     private String number; //the number to contact the venue
+
     //others
 
     public DCVenue(String venueName, String adress, String number) {
@@ -17,7 +22,7 @@ public class DCVenue implements java.io.Serializable {
 
     public DCVenue(DCVenue copy) {
         this(copy.venueName, copy.adress, copy.number);
-        //yea, all varables are value based!
+        //yeah! all varables are value based!
     }
 
     public String getVenueName() {
@@ -53,11 +58,22 @@ public class DCVenue implements java.io.Serializable {
     public String toString() {
         StringBuilder ret = new StringBuilder();
         
-        ret.append(venueName + " is located at " + adress);
+        ret.append(venueName + " which is located at " + adress);
         ret.append('\n');
-        ret.append("They can be contacted at:" + number);
+        ret.append("Contact Number: " + number);
 
         return ret.toString();
+    }
+
+    //present
+    public void editVenue() {
+        ConsoleMenu venueEdit = new ConsoleMenu();
+
+        venueEdit.add("Edit Venue name", this::setVenueName, () -> askString("Enter new Venue name (Was '"+venueName+"'): "));
+        venueEdit.add("Edit Adress", this::setAdress, () -> askString("Enter new Adress (Was '"+adress+"'): "));
+        venueEdit.add("Edit Number", this::setNumber, () -> askString("Enter new Number (Was '"+number+"'): "));
+
+        venueEdit.showUntilExit("Return");
     }
 
 }

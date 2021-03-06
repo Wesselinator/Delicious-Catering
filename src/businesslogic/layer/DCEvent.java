@@ -1,8 +1,15 @@
 //this is a data class that holds all the data for an Event
 package businesslogic.layer;
 
-import java.time.*;
-import java.util.*;
+import static pressentation.layer.Ask.*;
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import pressentation.layer.controls.DCConsoleEngine;
+import pressentation.layer.menu.ConsoleMenu;
 
 public class DCEvent implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -10,25 +17,25 @@ public class DCEvent implements java.io.Serializable {
     private LocalDateTime dtEvent;
     private DCVenue venue;
 
-    private int kids;
-    private int adults;
+    private int kids = 0;
+    private int adults = 0;
 
     public int getPeople() {
         return kids + adults;
     }
 
-    private ArrayList<Menu> menus = new ArrayList<>();
+    private ArrayList<DCMenu> menus;
 
     private boolean decoration;
     private String clientDecoRequest;
 
-    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, List<Menu> menus, String clientDecoRequest) {
+    public DCEvent(String type, LocalDateTime dtEvent, DCVenue venue, int kids, int adults, List<DCMenu> menus, String clientDecoRequest) {
         this.type = type;
         this.dtEvent = dtEvent;
         this.venue = venue;
         this.kids = kids;
         this.adults = adults;
-        this.menus = (ArrayList) menus;
+        this.menus = (ArrayList<DCMenu>) menus;
 
         if (!clientDecoRequest.isEmpty()) {
             this.clientDecoRequest = clientDecoRequest;
@@ -42,15 +49,16 @@ public class DCEvent implements java.io.Serializable {
 
     public DCEvent(DCEvent copy) {
         this.type = copy.type; //value
-        this.dtEvent = copy.dtEvent; //this is probably shallow, but we don't need a copy of this one so its fine (?)
+        this.dtEvent = copy.dtEvent; //this is probably shallow, but we don't use it anywhere so its fine (?)
         this.venue = new DCVenue(copy.venue); //deep
         this.kids = copy.kids; //value
         this.adults = copy.adults; //value
 
         //this.menus = new ArrayList<>(copy.menus); //idk if this is deep or shallow
         //verbose version
-        for (Menu menu : copy.menus) {
-            this.menus.add(new Menu(menu));
+        this.menus = new ArrayList<>();
+        for (DCMenu menu : copy.menus) {
+            this.menus.add(new DCMenu(menu));
         }
 
         this.decoration = copy.decoration; //value
@@ -99,12 +107,12 @@ public class DCEvent implements java.io.Serializable {
         this.adults = adults;
     }
 
-    public List<Menu> getMenus() {
+    public List<DCMenu> getMenus() {
         return menus;
     }
 
-    public void setMenus(List<Menu> menus) {
-        this.menus = (ArrayList) menus;
+    public void setMenus(List<DCMenu> menus) {
+        this.menus = (ArrayList<DCMenu>) menus;
     }
 
     public String getClientDecoRequest() {
@@ -119,7 +127,7 @@ public class DCEvent implements java.io.Serializable {
     //other
 
     public void discountAdultMenus() {
-        for (Menu menu : menus) {
+        for (DCMenu menu : menus) {
             menu.applyAdultDiscount();
         }
     }
@@ -130,21 +138,20 @@ public class DCEvent implements java.io.Serializable {
         return ret;
     }
 
-    
+    //string
 
-    //override
+    private static final DateTimeFormatter DTfmt = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder();
         ret.append("A "+type+" Event");
-        ret.append('\n');
-        ret.append("Is Scheduled for " + dtEvent.toString() + " At:\n" + venue.toString());
+        ret.append(" is Scheduled for " + DTfmt.format(dtEvent) + " at " + venue.toString());
         ret.append("\n\n");
         ret.append( String.format("%s people will be attending. (%s kids and %s adults)", getPeople(), kids, adults) );
-        ret.append('\n');
+        ret.append("\n\n");
         ret.append("The menus are:");
-        for (Menu menu : menus) {
+        for (DCMenu menu : menus) {
             ret.append('\n');
             ret.append(menu.toString());
         }
@@ -156,5 +163,38 @@ public class DCEvent implements java.io.Serializable {
 
         return ret.toString();
     }  
+
+    //present
+
+    public void editEvent() {
+        ConsoleMenu eventEdit = new ConsoleMenu();
+
+        eventEdit.add("Edit Type", this::setType, () -> askString("Enter new type (Was '"+type+"'): "));
+        eventEdit.add("Edit Date Time", this::setDtEvent, () -> askLDT("Enter new date and time (Was '"+dtEvent.toString()+"'): "));
+        eventEdit.add("Edit Amount of kids", this::setKids, () -> askInt("Enter new amount kids (Was "+kids+"): "));
+        eventEdit.add("Edit Amount of adults", this::setAdults, () -> askInt("Enter new amount adults (Was "+adults+"): "));
+        eventEdit.add("Edit Venue", venue::editVenue);
+        eventEdit.add("Edit Menus", this::editMenus);
+
+        if (decoration) {
+            eventEdit.add("Edit your Decoration Request", this::setClientDecoRequest, () -> askString("Enter new value (Was "+clientDecoRequest+"): "));
+        } else {
+            eventEdit.add("Add a Decoration Request", this::setClientDecoRequest, () -> askString("Enter your request : "));
+        }
+
+        eventEdit.showUntilExit("Return");
+    }
+
+    private void editMenus() {
+        ConsoleMenu menuEdit = new ConsoleMenu();
+
+        do {
+            menuEdit.clear();
+            menuEdit.add("Add another menu", menus::add, DCConsoleEngine::newFullMenu);
+            for (DCMenu menu : menus) {
+                menuEdit.add("Edit " + menu.toShortString(), menu::editMenu);
+            }
+        } while (menuEdit.show("Return"));        
+    }
     
 }

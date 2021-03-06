@@ -1,13 +1,23 @@
 //This is a data holder class for the client registrations
-package dataaccess.layer;
+package businesslogic.layer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import businesslogic.layer.DCClient;
+import dataaccess.layer.FileHandler;
 
 public class Registrations {
-    private static final long serialVersionUID = 1L;
-    private ArrayList<DCClient> clients = new ArrayList<>();
+    
+    private List<DCClient> clients = new ArrayList<>();
+
+    public Registrations() {
+        loadRegistrations();
+    }
+
+    public void deleteAll() {
+        clients.clear();
+        saveRegistrations();
+    }
 
     public boolean registerClient(String fname, String lname, String number) {
         DCClient newClient = new DCClient(fname, lname, number);
@@ -16,6 +26,7 @@ public class Registrations {
         }
         else {
             clients.add(newClient);
+            saveRegistrations();
             return true;
         }
     }
@@ -36,6 +47,10 @@ public class Registrations {
 
     public void saveRegistrations () {
         FileHandler.writeRegistrations(clients);
+    }
+
+    public void loadRegistrations () {
+        clients = FileHandler.readRegistrations();
     }
 
     @Override

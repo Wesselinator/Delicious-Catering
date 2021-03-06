@@ -1,17 +1,30 @@
 package businesslogic.layer;
 
+import static pressentation.layer.Ask.*;
+import static pressentation.layer.ShortConsoleMethods.*;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import pressentation.layer.menu.ConsoleMenu;
+
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
+
     private Double baseCost;
     private Double paid;
-    private int bookingNumber;
+    private String bookingNumber;
     private boolean confirmed = false;
-
+    
     private DCClient client;
     private DCEvent event;
+
+    public DCBooking(Double basecost, DCClient client, DCEvent event) {
+        this.baseCost = basecost;
+        this.client = client;
+        this.event = event;
+        this.paid = 0.0;
+    }
 
     //g&s
 
@@ -23,12 +36,33 @@ public class DCBooking implements java.io.Serializable {
         this.baseCost = baseCost;
     }
 
-    public int getBookingNumber() {
+    public Double getPaid() {
+        return paid;
+    }
+
+    public String getPaymentStatus() {
+        StringBuilder sBuilder = new StringBuilder();
+
+        if (paid == 0) {
+            sBuilder.append("Not Paid at all!");
+        } else if (paid < baseCost) {
+            sBuilder.append("Not Fully Paid!");
+        } else {
+            sBuilder.append("Fully Paid!");
+        }
+
+        if (isConfirmed()) {
+            sBuilder.append(" Booking is confirmed");
+        }
+
+        return sBuilder.toString();
+    }
+
+    public String getBookingNumber() {
         return bookingNumber;
     }
 
-    //no way of knowing of numbers alrady in use
-    public void setBookingNumber(int bookingNumber) {
+    public void setBookingNumber(String bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
 
@@ -57,36 +91,54 @@ public class DCBooking implements java.io.Serializable {
         return ret;
     }
 
-    //able to overpay, should do something about that
+    //helper methods
+
     public void addPayment(double ammount) {
-        if (paid >= baseCost) {
+        double newPaid = paid + ammount;
+        if (newPaid > baseCost) {
+            pl(String.format("You over payed, and R%.2f has been returened to your account ", newPaid-baseCost));
+            paid = baseCost;//Booking fully paid
             return; 
         }
 
-        paid += ammount;
+        paid = newPaid;
 
         if ( paid >= (baseCost*0.50) && ChronoUnit.DAYS.between(LocalDateTime.now(), event.getDtEvent()) > 15 ) {
             confirmed = true;
         }
+        
+            pl(getPaymentStatus());
     }
 
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder();
         
+        ret.append("\n----------------------------\n");
+
         ret.append("Booking: " + bookingNumber);
         ret.append('\n');
-        ret.append("Cost: " + baseCost);
+        ret.append(String.format("Cost: R%.2f", baseCost));
         ret.append('\n');
-        ret.append("Paid: " + paid);
+        ret.append(String.format("Payed: R%.2f", paid));
         ret.append('\n');
         ret.append("Confirmed: " + confirmed);
         ret.append('\n');
         ret.append("Client: " + client.toString());
-        ret.append('\n');
-        ret.append("Event:\n" + getEvent().toString());
+        ret.append("\n\n");
+        ret.append("Event: \n" + getEvent().toString());
         ret.append('\n');
 
         return ret.toString();
+    }
+
+    //present
+    public void editBooking() {
+        ConsoleMenu bookingEdit = new ConsoleMenu();
+
+        bookingEdit.add("Edit Base Cost", this::setBaseCost, () -> askDouble("Enter new value (was R"+baseCost+"): "));
+        bookingEdit.add("Edit Event", event::editEvent);
+
+        bookingEdit.showUntilExit("Return");
     }
 }
