@@ -112,11 +112,11 @@ public class DCMenu implements java.io.Serializable {
         do {
             menuEdit = new ConsoleMenu();
             pl("Choose a item to Edit");
+            menuEdit.add("Add another item", this::askNewItem);
             for (int i = 0; i < items.size(); i++) {
                 int index = i;
                 menuEdit.add(getMenuItem(index), this::editItem, () -> index);
             }
-            menuEdit.add("Add another item", this::askNewItem);
         } while (menuEdit.show("Return"));
         
     }

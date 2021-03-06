@@ -6,6 +6,7 @@ import java.util.*;
 
 import pressentation.layer.menu.ConsoleMenu;
 import static pressentation.layer.Ask.*;
+import pressentation.layer.controls.DCConsoleEngine;
 
 public class DCEvent implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -184,11 +185,13 @@ public class DCEvent implements java.io.Serializable {
     private void editMenus() {
         ConsoleMenu menuEdit = new ConsoleMenu();
 
-        for (DCMenu menu : menus) {
-            menuEdit.add("Edit " + menu.toShortString(), menu::editMenu);
-        }
-
-        menuEdit.showUntilExit("Return");
+        do {
+            menuEdit.clear();
+            menuEdit.add("Add another menu", menus::add, DCConsoleEngine::newFullMenu);
+            for (DCMenu menu : menus) {
+                menuEdit.add("Edit " + menu.toShortString(), menu::editMenu);
+            }
+        } while (menuEdit.show("Return"));        
     }
     
 }
