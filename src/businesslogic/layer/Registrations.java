@@ -15,6 +15,7 @@ public class Registrations {
 
     public void deleteAll() {
         clients.clear();
+        //clients.remove(clients.size()-1);//delete last client
         saveRegistrations();
     }
 
