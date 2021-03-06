@@ -1,14 +1,31 @@
-## Getting Started
+# PRG381 Project for 2021
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Welcome to our Delicious-Catering console program! 
 
-## Folder Structure
+## Structure
 
-The workspace contains two folders by default, where:
+We followed the buiness layers approach and indicated it with the directory structure.
+- `dataaccess\layer` contains our data saving and loading logic.
+- `bussinesslogic\layer` contains most of our object handling and tranformation logic, it also contains some presentation code.
+- `presentation\layer` contatins all of the objects and methods to enable user interaction with the data objects.
+  
+- `controls` was used to orginize the difrent controls available by the clients and the admin.
+- `menu` is used to hold the ConsoleMenu class that we used extensably in simplifing the logic of the creation of console menus.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Data
 
-## Dependency Management
+We decided to go with serialization as our saving and loading method. The Files in the `Data` directory contain sample data.
 
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
+# Sample Users
+
+- John Smith : 0123456789
+
+## Sample Usage
+
+do this and this to get some output
+
+## The Team
+ - Wessel Scholtz
+ - Marco Venter
+ - Ignatio Ferreira
+ - Charles Payne
