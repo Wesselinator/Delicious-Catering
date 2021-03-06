@@ -27,7 +27,6 @@ public final class Ask {
 
     //cant use a static scanner var because it gets set to null in the closing process
 
-    //TODO: Consider more descriptive exceptions
     private static <R> R askObject(String message, String error, Function<Scanner, R> funct) {
         String prettyMessage = prettyMessageEnd(message);
         do {

@@ -48,7 +48,6 @@ public class Bookings {
 
     //helper functs
 
-    //TODO: do with a stream function?
     public boolean bookingNumberOpen(String bookingNumber) {
         boolean found = false;
         for (DCBooking booking : bookingsData) {
