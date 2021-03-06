@@ -2,6 +2,7 @@
 package businesslogic.layer;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import pressentation.layer.menu.ConsoleMenu;
@@ -139,11 +140,13 @@ public class DCEvent implements java.io.Serializable {
 
     //override
 
+    private static final DateTimeFormatter DTfmt = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder();
         ret.append("A "+type+" Event");
-        ret.append(" is Scheduled for " + dtEvent.toString() + " at " + venue.toString());
+        ret.append(" is Scheduled for " + DTfmt.format(dtEvent) + " at " + venue.toString());
         ret.append("\n\n");
         ret.append( String.format("%s people will be attending. (%s kids and %s adults)", getPeople(), kids, adults) );
         ret.append("\n\n");

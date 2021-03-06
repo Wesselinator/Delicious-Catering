@@ -116,7 +116,6 @@ public class Bookings {
         pl(dcBookingsListToString(blist));
     }
 
-    
     public void editBookings(DCClient activeClient) {
         ConsoleMenu bookingMenu = new ConsoleMenu();
 
@@ -129,7 +128,6 @@ public class Bookings {
         saveBookings();
     }
 
-    //TODO: Generalize
     public void payBookings(DCClient activeClient) {
         ConsoleMenu bookingMenu = new ConsoleMenu();
 
