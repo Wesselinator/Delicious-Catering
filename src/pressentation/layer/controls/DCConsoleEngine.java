@@ -19,9 +19,8 @@ public final class DCConsoleEngine {
         return new DCClient(fname, lname, number);
     }
 
-    //TODO: test
     public static DCBooking newBooking(DCClient activeClient) {
-        Double basecost = askDouble("Enter the total Cost of the booking");
+        Double basecost = askDouble("Enter the total Cost of the booking (R)");
         DCEvent event = newFullEvent();
         return new DCBooking(basecost, activeClient, event);
     }
@@ -29,7 +28,7 @@ public final class DCConsoleEngine {
     public static DCVenue newVenue() {
         String venueName = askString("Input venue name:");
         String venueAddress = askString("Input venue address:");
-        String venueNumber = askString("Input venue number:");
+        String venueNumber = askString("Input venue phone number:");
         return new DCVenue(venueName, venueAddress, venueNumber);
     }
 
@@ -40,13 +39,11 @@ public final class DCConsoleEngine {
             ret.setAdult();
         }
 
-        for (boolean b = false; Boolean.FALSE.equals(b); b = askYesNo("Finished? Y/N: ")) {
-            String item = askString("Enter the menu item: ");
-            Double price = askDouble("Enter the price for the Item: ");
-            ret.addMenuItem(item, price);
+        for (boolean b = false; Boolean.FALSE.equals(b); b = askYesNo("Finished with this menu? Y/N: ")) {
+            ret.askNewItem();
         }
 
-        return new DCMenu(title);
+        return ret;
     }
 
     public static List<DCMenu> newFullMenus() {
@@ -57,18 +54,20 @@ public final class DCConsoleEngine {
         return menus;
     }
 
-    private static DCEvent newFullEvent() {
-        String type = askString("Enter event type: ");
-
-        Bookings allbookings = new Bookings();
-        LocalDateTime dt = null;
+    private static LocalDateTime askDate() {
+        LocalDateTime dt;
         while (true) {
-            if (allbookings.bookingDateOpen(dt = askLDT("Enter the date for the event"))) {
-                break;
+            dt = askLDT("Enter the date for the event");
+            if (Bookings.bookingDateOpen(dt)) {
+                return dt;
             }
             pl("The chosen data has already been booked, please choose another date.");
         }
-        
+    }
+
+    private static DCEvent newFullEvent() {
+        String type = askString("Enter event type: ");
+        LocalDateTime dt = askDate();
         int kidsTotal = askInt("Enter number of children attending");
         int adultsTotal = askInt("Enter number of adults attending");
 
@@ -79,8 +78,6 @@ public final class DCConsoleEngine {
 
         DCVenue venue = newVenue();
         List<DCMenu> menus = newFullMenus();
-
-        //TODO: Indicate Booking complete, Need to show client menu again
 
         return new DCEvent(type, dt, venue, kidsTotal, adultsTotal, menus, decorations);
     }

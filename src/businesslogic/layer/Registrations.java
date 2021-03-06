@@ -13,6 +13,11 @@ public class Registrations {
         loadRegistrations();
     }
 
+    public void deleteAll() {
+        clients.clear();
+        saveRegistrations();
+    }
+
     public boolean registerClient(String fname, String lname, String number) {
         DCClient newClient = new DCClient(fname, lname, number);
         if (clients.contains(newClient)) {

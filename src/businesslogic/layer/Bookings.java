@@ -20,24 +20,26 @@ public class Bookings {
         loadBookings();
     }
 
-    //might be needed for deep copy
-    public List<DCBooking> getBookings() {
-        //List<DCBooking> ret = new ArrayList<>();
-        //bookingsData.forEach(ret::add);
-        return bookingsData;
+    public void deleteAll() {
+        bookingsData.remove(1);
+        bookingsData.clear();
+        saveBookings();
     }
 
     public boolean addBooking(DCBooking booking) {
-        String bookingNumber;
+        String bookingNumber = "";
         do {
             bookingNumber = String.format("%s", (Math.round(Math.random() * 1000000)));    
         } while (!bookingNumberOpen(bookingNumber));
 
+        booking.setBookingNumber(bookingNumber);
+
         if (bookingsData.contains(booking)) {
-            //duplicate
+            pl("FAILED - This Booking Exists");
             return false;
         } else {
             bookingsData.add(booking);
+            pl("Booking Added!");
             saveBookings();
             return true;
         }
@@ -48,31 +50,24 @@ public class Bookings {
 
     //TODO: do with a stream function?
     public boolean bookingNumberOpen(String bookingNumber) {
-        boolean ret = false;
+        boolean found = false;
         for (DCBooking booking : bookingsData) {
-            ret |= booking.getBookingNumber().equals(bookingNumber);
+            found |= booking.getBookingNumber().equals(bookingNumber);
         }
-        return ret;
+        return !found;
     }
 
-    //return true if the booking date (without time [!]) is open
-    public boolean bookingDateOpen(LocalDateTime date)
+    public static boolean bookingDateOpen(LocalDateTime date)
     {
-     
-        loadBookings();
-        for (DCBooking booking : bookingsData) {
-            if (booking.getEvent().getDtEvent().toString().substring(0, 9).compareTo(date.toString().substring(0, 9)) == 0 ) {
+        List<DCBooking> savedBookings = FileHandler.readBookings();
+
+        for (DCBooking booking : savedBookings) {
+            //only grab the date part of the DateTime and compare them
+            if (booking.getEvent().getDtEvent().toLocalDate().equals(date.toLocalDate())) {
                 return false;
             }
         }
         return true;
-        //previous method
-        /*for (DCBooking booking : bookingsData) {
-            if (booking.getEvent().getDtEvent().equals(date)) {
-                return false;
-            }
-        }
-        return true;*/
     }
 
     public DCBooking findBooking(String bookingNumber) {
@@ -82,7 +77,7 @@ public class Bookings {
             }
         }
 
-        return null; //more elegant fail solution?
+        return null;
     }
 
 
@@ -108,9 +103,7 @@ public class Bookings {
     //toStrings
 
     public static String dcBookingsListToString(List<DCBooking> blist) {
-        List<String> ret = new ArrayList<>();
-        blist.forEach(bd -> ret.add(bd.toString()));
-        return String.join("\n", ret);
+        return blist.stream().map(DCBooking::toString).collect(Collectors.joining("\n"));
     }
 
     @Override
@@ -132,7 +125,8 @@ public class Bookings {
         for (DCBooking booking : getActiveClientBookings(activeClient)) {
             bookingMenu.add(booking.getBookingNumber(), booking::editBooking);
         }
-        bookingMenu.showUntilExit("Return to Main Menu");
+        bookingMenu.showUntilExit("Save and return to Client Menu");
+        saveBookings();
     }
 
     //TODO: Generalize
@@ -142,10 +136,11 @@ public class Bookings {
         pl("Please select the Booking you want to add funds to");
         nl();
         for (DCBooking booking : getActiveClientBookings(activeClient)) {
-            bookingMenu.add(booking.getBookingNumber(), booking::addPayment, () -> askDouble("How much do you want to pay? (Status:"+booking.getPaymentStatus()+")"));
+            bookingMenu.add(booking.getBookingNumber(), booking::addPayment, () -> askDouble("How much do you want to pay? (Status: "+booking.getPaymentStatus()+")"));
         }
 
-        bookingMenu.showUntilExit("Return to Main Menu");
+        bookingMenu.showUntilExit("Return to Client Menu");
+        saveBookings();
     }
 
 

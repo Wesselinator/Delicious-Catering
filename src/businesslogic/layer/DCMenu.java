@@ -11,13 +11,15 @@ import static pressentation.layer.ShortConsoleMethods.*;
 public class DCMenu implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     private String title;
-    private List<String> items = new ArrayList<>();
-    private List<Double> prices = new ArrayList<>();
+    private List<String> items;
+    private List<Double> prices;
 
     private boolean isAdultMenu = false;
 
     public DCMenu(String title) {
         this.title = title;
+        this.items = new ArrayList<>();
+        this.prices = new ArrayList<>();
     }
 
     public DCMenu(String title, List<String> items, List<Double> prices, Boolean isAdultMenu) {
@@ -29,7 +31,7 @@ public class DCMenu implements java.io.Serializable {
 
     public DCMenu(DCMenu copy) {
         this.title = copy.title; //value, thus deep
-        this.items = new ArrayList<>(items); //deep
+        this.items = new ArrayList<>(copy.items); //deep
         this.prices = new ArrayList<>(copy.prices); //deep
         this.isAdultMenu = copy.isAdultMenu; //value, thus deep
     }
@@ -71,7 +73,7 @@ public class DCMenu implements java.io.Serializable {
 
     //change if general solution is needed
     private void applyDiscount(Double percentageDiscounted) {
-        prices.replaceAll(p -> p*(percentageDiscounted/100) );
+        prices.replaceAll(p -> p - p*(percentageDiscounted/100) );
     }
 
     public boolean applyAdultDiscount() { //return might be required
@@ -82,37 +84,41 @@ public class DCMenu implements java.io.Serializable {
         return false;
     }
 
+    //present
+
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder();
-        ret.append(title + '\n');
+        ret.append(toShortString());
 
         for (int i = 0; i < items.size(); i++) {
             ret.append('\n');
-            ret.append(getMenuItem(i));
+            ret.append("- "+getMenuItem(i));
         }
 
+        ret.append('\n');
         return ret.toString();
     }
 
     public String toShortString() {
         if (isAdultMenu) {
-            return title + "[This is an Adult Menu]";
+            return title + " [This is an Adult Menu]";
         }
         return title;
     }
 
-    //present
     public void editMenu() {
-        ConsoleMenu menuEdit = new ConsoleMenu();
-
-        pl("Choose a item to ");
-        for (int i = 0; i < items.size(); i++) {
-            int index = i;
-            menuEdit.add(getMenuItem(index), this::editItem, () -> index);
-        }
-
-        menuEdit.showUntilExit("Exit to Main Menu");
+        ConsoleMenu menuEdit;
+        do {
+            menuEdit = new ConsoleMenu();
+            pl("Choose a item to Edit");
+            for (int i = 0; i < items.size(); i++) {
+                int index = i;
+                menuEdit.add(getMenuItem(index), this::editItem, () -> index);
+            }
+            menuEdit.add("Add another item", this::askNewItem);
+        } while (menuEdit.show("Return"));
+        
     }
 
     private void editItem(int index) {
@@ -129,5 +135,11 @@ public class DCMenu implements java.io.Serializable {
 
         items.set(index, item); 
         prices.set(index, price);
+    }
+
+    public void askNewItem() {
+        String item = askString("Enter the menu item: ");
+        Double price = askDouble("Enter the price for the Item: ");
+        addMenuItem(item, price);
     }
 }
