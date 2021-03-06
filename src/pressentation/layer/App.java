@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) {
         Bookings allBookings = new Bookings();
         Registrations allClients = new Registrations();
-
+        
         Controls adminControls = new AdminControls(allBookings, allClients);
         Controls clientControls = new ClientControls(allBookings, allClients);
 

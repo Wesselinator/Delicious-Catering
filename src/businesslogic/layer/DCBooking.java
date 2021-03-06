@@ -97,6 +97,7 @@ public class DCBooking implements java.io.Serializable {
         double newPaid = paid + ammount;
         if (newPaid > baseCost) {
             pl(String.format("You over payed, and R%.2f has been returened to your account ", newPaid-baseCost));
+            paid = baseCost;//Booking fully paid
             return; 
         }
 
@@ -105,10 +106,8 @@ public class DCBooking implements java.io.Serializable {
         if ( paid >= (baseCost*0.50) && ChronoUnit.DAYS.between(LocalDateTime.now(), event.getDtEvent()) > 15 ) {
             confirmed = true;
         }
-
-        if (paid.equals(baseCost)) {
+        
             pl(getPaymentStatus());
-        }
     }
 
     @Override
@@ -121,7 +120,7 @@ public class DCBooking implements java.io.Serializable {
         ret.append('\n');
         ret.append(String.format("Cost: R%.2f", baseCost));
         ret.append('\n');
-        ret.append(String.format("Cost: R%.2f", paid));
+        ret.append(String.format("Payed: R%.2f", paid));
         ret.append('\n');
         ret.append("Confirmed: " + confirmed);
         ret.append('\n');

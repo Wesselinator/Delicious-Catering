@@ -29,7 +29,10 @@ public class AdminControls implements Controls {
 
     private boolean askAdminLogin(int attempts) {
         for (int i = 0; i < attempts; i++) {
-            p("Login as Admin: ");
+            if (i > 0) {
+                nl();
+                p("Invalid login details, please try again. ");
+            } else p("Login as Admin: ");
             pl(attempts-i + " attempts remain");
             String username = askString("Please input username");
             String password = askString("Please input password");
