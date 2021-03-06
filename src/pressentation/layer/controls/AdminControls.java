@@ -29,6 +29,7 @@ public class AdminControls implements Controls {
 
     private boolean askAdminLogin(int attempts) {
         for (int i = 0; i < attempts; i++) {
+            p("Login as client: ");
             pl(attempts-i + " attempts remain");
             String username = askString("Please input username");
             String password = askString("Please input password");
@@ -39,7 +40,6 @@ public class AdminControls implements Controls {
         pl("Max attempts reached!");
         return false;
     }
-
 
     @Override
     public void login() {

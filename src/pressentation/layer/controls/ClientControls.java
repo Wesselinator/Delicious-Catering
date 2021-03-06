@@ -25,6 +25,7 @@ public class ClientControls implements Controls {
 
     private boolean askClientLogin(int attempts) {
         for (int i = 0; i < attempts; i++) {
+            p("Login as client: ");
             pl(attempts-i + " attempts remain");
             String fname = askString("Please input First Name");
             String lname = askString("Please input Last Name");

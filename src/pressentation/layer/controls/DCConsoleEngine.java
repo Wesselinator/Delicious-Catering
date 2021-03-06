@@ -2,6 +2,7 @@ package pressentation.layer.controls;
 
 import businesslogic.layer.*;
 import static pressentation.layer.Ask.*;
+import static pressentation.layer.ShortConsoleMethods.*;
 
 import java.time.*;
 import java.util.*;
@@ -58,7 +59,16 @@ public final class DCConsoleEngine {
 
     private static DCEvent newFullEvent() {
         String type = askString("Enter event type: ");
-        LocalDateTime dt = askLDT("Enter the date for the event");
+        
+        Bookings allbookings = new Bookings();
+        LocalDateTime dt = null;
+        while (true) {
+            if (allbookings.bookingDateOpen(dt = askLDT("Enter the date for the event"))) {
+                break;
+            }
+            pl("The chosen data has already been booked, please choose another date.");
+        }
+        
         int kidsTotal = askInt("Enter number of children attending");
         int adultsTotal = askInt("Enter number of adults attending");
 

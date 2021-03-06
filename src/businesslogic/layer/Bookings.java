@@ -55,17 +55,24 @@ public class Bookings {
         return ret;
     }
 
-    //return true if the booking date (and time [!]) is open
+    //return true if the booking date (without time [!]) is open
     public boolean bookingDateOpen(LocalDateTime date)
     {
-        //use dateTime compare methods instead
-        
+     
+        loadBookings();
         for (DCBooking booking : bookingsData) {
-            if (booking.getEvent().getDtEvent().equals(date)) {
+            if (booking.getEvent().getDtEvent().toString().substring(0, 9).compareTo(date.toString().substring(0, 9)) == 0 ) {
                 return false;
             }
         }
         return true;
+        //previous method
+        /*for (DCBooking booking : bookingsData) {
+            if (booking.getEvent().getDtEvent().equals(date)) {
+                return false;
+            }
+        }
+        return true;*/
     }
 
     public DCBooking findBooking(String bookingNumber) {
