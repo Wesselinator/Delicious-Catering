@@ -36,7 +36,7 @@ public final class DCConsoleEngine {
     public static DCMenu newFullMenu() {
         String title = askString("Enter the menu's title: ");
         DCMenu ret = new DCMenu(title);
-        if (askYesNo("Is this an Adult menu")) {
+        if (askYesNo("Is this an Adult menu? Y/N")) {
             ret.setAdult();
         }
 
@@ -51,7 +51,7 @@ public final class DCConsoleEngine {
 
     public static List<DCMenu> newFullMenus() {
         List<DCMenu> menus = new ArrayList<>();
-        for (boolean b = true; Boolean.TRUE.equals(b); b = askYesNo("Want to add another menu? : ")) {
+        for (boolean b = true; Boolean.TRUE.equals(b); b = askYesNo("Want to add another menu? Y/N: ")) {
             menus.add(newFullMenu());
         }
         return menus;
@@ -59,7 +59,7 @@ public final class DCConsoleEngine {
 
     private static DCEvent newFullEvent() {
         String type = askString("Enter event type: ");
-        
+
         Bookings allbookings = new Bookings();
         LocalDateTime dt = null;
         while (true) {
@@ -73,12 +73,14 @@ public final class DCConsoleEngine {
         int adultsTotal = askInt("Enter number of adults attending");
 
         String decorations = "";
-        if (Boolean.TRUE.equals(askYesNo("Would you like to add decorations y/n"))) {
+        if (Boolean.TRUE.equals(askYesNo("Would you like to add decorations? Y/N"))) {
             decorations = askString("Enter the decorations you would like");
         }
 
         DCVenue venue = newVenue();
         List<DCMenu> menus = newFullMenus();
+
+        //TODO: Indicate Booking complete, Need to show client menu again
 
         return new DCEvent(type, dt, venue, kidsTotal, adultsTotal, menus, decorations);
     }
