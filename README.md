@@ -41,6 +41,42 @@ Sign in with:
 | Thabo      | Madiba    | 0785649632 |
 | Maggy      | Moabelo   | 0725603215 |
 
+## Stand Out Samples
+
+### Big Bookings
+
+These bookings have a lot of people in them and count for the 15% discount.
+
+- **781472** - Ruben Van Wyk
+- **73518** - Ellie Prince
+
+### Confirmed Booking
+
+These bookings have payed more than half of their cost and are considered confirmed
+
+- **781472** - Ruben Van Wyk
+- **320182** - Maggy Moabelo
+
+### Bookings that failed to confirm
+
+These bookings might have payed more than half of the cost but did not do so within 15 of the event starting
+
+- **687438** - John Smith
+- **431286** - Megan Ross
+
+### Large Menus
+
+These bookings have large menus
+
+- **530322** - Thabo Madiba
+ 
+
+### Clients with multiple bookings
+
+These are clients have multiple bookings under their name
+
+- Dian Brith - **678060** and **97360**
+
 # The Team
 
  ### Wessel Scholtz
