@@ -1,12 +1,11 @@
 package pressentation.layer.menu;
 
-import static pressentation.layer.Ask.askInt;
-import static pressentation.layer.ShortConsoleMethods.nl;
-import static pressentation.layer.ShortConsoleMethods.pl;
+import static pressentation.layer.Ask.*;
+import static pressentation.layer.ShortConsoleMethods.*;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 

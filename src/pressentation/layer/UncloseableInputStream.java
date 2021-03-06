@@ -11,6 +11,6 @@ public class UncloseableInputStream extends FilterInputStream {
     
     @Override
     public void close() throws IOException {
-        // do nothing!
+        // do not close your in stream!
     }
 }

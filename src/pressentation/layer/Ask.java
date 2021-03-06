@@ -2,10 +2,11 @@ package pressentation.layer;
 
 import static pressentation.layer.ShortConsoleMethods.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import java.util.function.*;
+import java.time.LocalDateTime;
+import java.util.function.Function;
+import java.time.format.DateTimeFormatter;
+
 
 public final class Ask {
     private Ask() {}
@@ -73,12 +74,9 @@ public final class Ask {
         return askObject(message, "That wasn't a string", Scanner::nextLine);   
     }
 
-    //we should do this better
-    //maybe more verbose
     public static LocalDateTime askLDT(String message) {
         while (true) {
-            p(message);
-            String date = askString("Enter date in the format yyyy-MM-dd HH:mm :");
+            String date = askString(message);
             try {
                 return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             } catch (Exception e) {

@@ -1,11 +1,12 @@
 package businesslogic.layer;
 
+import static pressentation.layer.Ask.*;
+import static pressentation.layer.ShortConsoleMethods.*;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import pressentation.layer.menu.ConsoleMenu;
-import static pressentation.layer.Ask.*;
-import static pressentation.layer.ShortConsoleMethods.pl;
 
 public class DCBooking implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,7 +19,6 @@ public class DCBooking implements java.io.Serializable {
     private DCClient client;
     private DCEvent event;
 
-    //Constructor added
     public DCBooking(Double basecost, DCClient client, DCEvent event) {
         this.baseCost = basecost;
         this.client = client;

@@ -1,7 +1,8 @@
 //This is a data holder class for the client registrations
 package businesslogic.layer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import dataaccess.layer.FileHandler;
 

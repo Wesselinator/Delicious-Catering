@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MenuItem {
     private String item;
-    private Runnable action;  //almost evering writes to the console, maybe make this a String...
+    private Runnable action;
 
     public MenuItem(String item, Runnable action) {
         this.item = item;

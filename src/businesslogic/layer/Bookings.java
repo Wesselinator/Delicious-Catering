@@ -3,14 +3,16 @@
 //This object should contain methods to change, add, sort and extract information from ALL the bookings
 package businesslogic.layer;
 
+import static pressentation.layer.Ask.*;
+import static pressentation.layer.ShortConsoleMethods.*;
+
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import dataaccess.layer.FileHandler;
 import pressentation.layer.menu.ConsoleMenu;
-import static pressentation.layer.ShortConsoleMethods.*;
-import static pressentation.layer.Ask.*;
 
 public class Bookings {
     
@@ -94,10 +96,10 @@ public class Bookings {
         FileHandler.writeBookings(bookingsData);
     }
 
-    //you want to handle every thing in here
     public void loadBookings() {
         bookingsData = FileHandler.readBookings();
     }
+
 
     //toStrings
 
@@ -109,6 +111,7 @@ public class Bookings {
     public String toString() {
         return dcBookingsListToString(bookingsData);
     }
+
 
     //present
     public static void showDCBookingsList(List<DCBooking> blist) {
@@ -139,6 +142,5 @@ public class Bookings {
         bookingMenu.showUntilExit("Return to Client Menu");
         saveBookings();
     }
-
 
 }

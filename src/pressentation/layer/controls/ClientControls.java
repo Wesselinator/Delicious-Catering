@@ -66,6 +66,4 @@ public class ClientControls implements Controls {
         clientMenu.showUntilExit("Logout");
     }
 
-    
-
 }

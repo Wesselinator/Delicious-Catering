@@ -1,12 +1,13 @@
 //A data class that holds a menu
 package businesslogic.layer;
 
+import static pressentation.layer.Ask.*;
+import static pressentation.layer.ShortConsoleMethods.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import pressentation.layer.menu.ConsoleMenu;
-import static pressentation.layer.Ask.*;
-import static pressentation.layer.ShortConsoleMethods.*;
 
 public class DCMenu implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -76,7 +77,7 @@ public class DCMenu implements java.io.Serializable {
         prices.replaceAll(p -> p - p*(percentageDiscounted/100) );
     }
 
-    public boolean applyAdultDiscount() { //return might be required
+    public boolean applyAdultDiscount() {
         if (Boolean.TRUE.equals(isAdultMenu)) {
             applyDiscount(15.0);
             return true;

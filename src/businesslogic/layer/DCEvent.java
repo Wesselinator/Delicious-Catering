@@ -1,13 +1,15 @@
 //this is a data class that holds all the data for an Event
 package businesslogic.layer;
 
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-
-import pressentation.layer.menu.ConsoleMenu;
 import static pressentation.layer.Ask.*;
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import pressentation.layer.controls.DCConsoleEngine;
+import pressentation.layer.menu.ConsoleMenu;
 
 public class DCEvent implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -15,8 +17,8 @@ public class DCEvent implements java.io.Serializable {
     private LocalDateTime dtEvent;
     private DCVenue venue;
 
-    private int kids;
-    private int adults;
+    private int kids = 0;
+    private int adults = 0;
 
     public int getPeople() {
         return kids + adults;
@@ -136,9 +138,7 @@ public class DCEvent implements java.io.Serializable {
         return ret;
     }
 
-    
-
-    //override
+    //string
 
     private static final DateTimeFormatter DTfmt = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
@@ -170,7 +170,7 @@ public class DCEvent implements java.io.Serializable {
         ConsoleMenu eventEdit = new ConsoleMenu();
 
         eventEdit.add("Edit Type", this::setType, () -> askString("Enter new type (Was '"+type+"'): "));
-        eventEdit.add("Edit Date Time", this::setDtEvent, () -> askLDT("Enter new date and time (Was '"+dtEvent.toString()+"'): ")); //no DT checking
+        eventEdit.add("Edit Date Time", this::setDtEvent, () -> askLDT("Enter new date and time (Was '"+dtEvent.toString()+"'): "));
         eventEdit.add("Edit Amount of kids", this::setKids, () -> askInt("Enter new amount kids (Was "+kids+"): "));
         eventEdit.add("Edit Amount of adults", this::setAdults, () -> askInt("Enter new amount adults (Was "+adults+"): "));
         eventEdit.add("Edit Venue", venue::editVenue);
