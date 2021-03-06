@@ -16,7 +16,7 @@ public class AdminControls implements Controls {
     private Registrations allclients;
 
     public AdminControls(Bookings bookings, Registrations clients) {
-        this.userName = "Admin";
+        this.userName = "Raheal";
         this.passWord = "Admin";
 
         this.allBookings = bookings;

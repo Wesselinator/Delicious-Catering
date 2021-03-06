@@ -34,16 +34,12 @@ Sign in with:
 | ---------- |  -------- | ---------- |
 | John       | Smith     | 0123456789 |
 | Megan      | Ross      | 0237896541 |
-| Dian       | Brith     | 08945627894|
+| Dian       | Brith     | 0124568869 |
 | Ellie      | Prince    | 0789635460 |
 | Theo       | Joost     | 0615239654 |
 | Ruben      | Van Wyk   | 0629548745 |
 | Thabo      | Madiba    | 0785649632 |
 | Maggy      | Moabelo   | 0725603215 |
-
-## Sample Usage
-
-do this and this to get some output
 
 # The Team
 
