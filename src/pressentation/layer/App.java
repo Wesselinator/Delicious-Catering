@@ -18,11 +18,11 @@ public class App {
         pl(DCART);
         pl("Welcome!"); //or someting
 
-        ConsoleMenu MainMenu = new ConsoleMenu();
-        MainMenu.add(new MenuItem("Admin", adminControls::login));
-        MainMenu.add(new MenuItem("Client", clientControls::login));
+        ConsoleMenu mainMenu = new ConsoleMenu();
+        mainMenu.add(new MenuItem("Admin", adminControls::login));
+        mainMenu.add(new MenuItem("Client", clientControls::login));
 
-        MainMenu.showUntilExit("Exit");
+        mainMenu.showUntilExit("Exit");
     }
 
     

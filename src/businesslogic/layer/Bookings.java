@@ -48,7 +48,6 @@ public class Bookings {
 
     //helper functs
 
-    //TODO: do with a stream function?
     public boolean bookingNumberOpen(String bookingNumber) {
         boolean found = false;
         for (DCBooking booking : bookingsData) {
@@ -116,7 +115,6 @@ public class Bookings {
         pl(dcBookingsListToString(blist));
     }
 
-    
     public void editBookings(DCClient activeClient) {
         ConsoleMenu bookingMenu = new ConsoleMenu();
 
@@ -129,7 +127,6 @@ public class Bookings {
         saveBookings();
     }
 
-    //TODO: Generalize
     public void payBookings(DCClient activeClient) {
         ConsoleMenu bookingMenu = new ConsoleMenu();
 
